@@ -36,11 +36,11 @@ export default function LinksUteisPage() {
         <div style={{ maxWidth: '440px', width: '100%', textAlign: 'center' }}>
           
           <div style={{ fontSize: '32px', fontWeight: '700', marginBottom: '8px', letterSpacing: '-1px' }}>
-            contaFIT
+            conta<span style={{ fontWeight: '900', textTransform: 'uppercase' }}>FIT</span>
           </div>
           
           <p style={{ fontSize: '14px', color: '#94a3b8', marginBottom: '32px' }}>
-            Hub de Soluções e Contabilidade Inteligente para a Saúde 🩺
+            Contabilidade Digital Especializada no Mercado Fitness 🏋️
           </p>
           
           <a 
@@ -113,4 +113,3 @@ export default function LinksUteisPage() {
     </>
   );
 }
-
