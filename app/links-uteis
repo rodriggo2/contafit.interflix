@@ -44,7 +44,7 @@ export default function LinksUteisPage() {
           </p>
           
           <a 
-            href="https://onedoctor.com.br"
+            href="https://contafit.com.br"
             style={{
               display: 'block',
               width: '100%',
