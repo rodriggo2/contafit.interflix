@@ -4,6 +4,11 @@ import Script from 'next/script';
 
 export default function LinksUteisPage() {
   const pixelId = '1703806960639320';
+  const whatsappNumber = '5527935008000'; // Número oficial da contaFIT
+
+  // Links do WhatsApp
+  const linkWhatsApp = `https://wa.me/${whatsappNumber}`;
+  const linkSite = 'https://contafit.com.br';
 
   return (
     <>
@@ -14,9 +19,9 @@ export default function LinksUteisPage() {
           n.callMethod.apply(n,arguments):n.queue.push(arguments)};
           if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
           n.queue=[];t=b.createElement(e);t.async=!0;
-          t.src=v;s=b.getElementsByTagName(e);
+          t.src=v;s=b.getElementsByTagName(e)[0];
           s.parentNode.insertBefore(t,s)}(window, document,'script',
-          'https://facebook.net');
+          'https://connect.facebook.net/en_US/fbevents.js');
           fbq('init', '${pixelId}');
           fbq('track', 'PageView');
         `}
@@ -43,8 +48,11 @@ export default function LinksUteisPage() {
             Contabilidade Digital Especializada no Mercado Fitness 🏋️
           </p>
           
+          {/* Botão WhatsApp Principal */}
           <a 
-            href="https://contafit.com.br"
+            href={linkWhatsApp}
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
               display: 'block',
               width: '100%',
@@ -62,8 +70,11 @@ export default function LinksUteisPage() {
             Falar Conosco no WhatsApp 💬
           </a>
 
+          {/* Botão Site Oficial */}
           <a 
-            href="https://contafit.com.br"
+            href={linkSite}
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
               display: 'block',
               width: '100%',
@@ -81,8 +92,11 @@ export default function LinksUteisPage() {
             Conheça Nosso Site Oficial 🌐
           </a>
 
+          {/* Botão Conteúdos */}
           <a 
-            href="https://contafit.com.br" 
+            href={linkSite} 
+            target="_blank"
+            rel="noopener noreferrer"
             style={{
               display: 'block',
               width: '100%',
@@ -101,8 +115,8 @@ export default function LinksUteisPage() {
           </a>
 
           <footer style={{ fontSize: '11px', color: '#64748b', lineHeight: '1.6', marginTop: '20px' }}>
-            <strong>ONEDOCTOR INSTITUIÇÃO DE CONTABILIDADE LTDA</strong><br />
-            CNPJ: 52.989.413/0001-44<br />
+            <strong>contaFIT - Instituição de Contabilidade</strong><br />
+            Registrada no CRC-ES nº ES-005661/O-9<br />
             <span style={{ display: 'inline-flex', alignItems: 'center', marginTop: '6px', color: '#10b981', fontWeight: '600' }}>
               🔒 Conexão Segura • LGPD
             </span><br />
