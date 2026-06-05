@@ -36,7 +36,7 @@ export default function LinksUteisPage() {
         <div style={{ maxWidth: '440px', width: '100%', textAlign: 'center' }}>
           
           <div style={{ fontSize: '32px', fontWeight: '700', marginBottom: '8px', letterSpacing: '-1px' }}>
-            onedoctor
+            contaFIT
           </div>
           
           <p style={{ fontSize: '14px', color: '#94a3b8', marginBottom: '32px' }}>
@@ -63,7 +63,7 @@ export default function LinksUteisPage() {
           </a>
 
           <a 
-            href="https://onedoctor.com.br"
+            href="https://contafit.com.br"
             style={{
               display: 'block',
               width: '100%',
@@ -82,7 +82,7 @@ export default function LinksUteisPage() {
           </a>
 
           <a 
-            href="https://onedoctor.com.br" 
+            href="https://contafit.com.br" 
             style={{
               display: 'block',
               width: '100%',
