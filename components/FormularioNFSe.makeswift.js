@@ -1,0 +1,9 @@
+// components/FormularioNFSe.makeswift.js
+import { makeswift } from '../lib/makeswift/client'
+import { FormularioNFSe } from './FormularioNFSe'
+
+makeswift.registerComponent(FormularioNFSe, {
+  type: 'formulario-nfse',
+  label: 'Contafit / Emissor NFS-e',
+  props: {},
+})
