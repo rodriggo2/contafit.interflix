@@ -1,9 +1,14 @@
 // components/FormularioNFSe.makeswift.ts
-import { makeswift } from '@/lib/makeswift/client'
+import { Makeswift } from '@makeswift/runtime/next'
 import { FormularioNFSe } from './FormularioNFSe'
 
-makeswift.registerComponent(FormularioNFSe, {
+// Forma alternativa de registro
+const client = new Makeswift(process.env.MAKESWIFT_API_KEY!)
+
+client.registerComponent(FormularioNFSe, {
   type: 'formulario-nfse',
-  label: 'Contafit / Emissor NFS-e',
-  props: {},
+  label: 'ContaFit / Emissor NFS-e',
+  props: {}
 })
+
+export { client }
