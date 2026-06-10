@@ -1,10 +1,10 @@
 // components/FormularioNFSe.makeswift.ts
-import { makeswift } from '@/lib/makeswift/client'
+import { ReactRuntime } from '@makeswift/runtime/react'
 import { FormularioNFSe } from './FormularioNFSe'
 
-// @ts-ignore
-makeswift.registerComponent(FormularioNFSe, {
+// Registrar o componente no Makeswift
+ReactRuntime.registerComponent(FormularioNFSe, {
   type: 'formulario-nfse',
-  label: 'Contafit / Emissor NFS-e',
-  props: {},
+  label: 'ContaFit / Emissor NFS-e',
+  props: {}
 })
