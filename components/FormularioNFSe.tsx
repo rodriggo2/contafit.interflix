@@ -1,5 +1,7 @@
 'use client';
 import { useState } from 'react';
+// Importamos a lista de contratos que criamos
+import { LISTA_CONTRATOS } from '../utils/contratos';
 
 export function FormularioNFSe() {
   const [loading, setLoading] = useState(false);
@@ -11,12 +13,17 @@ export function FormularioNFSe() {
     setStatus(null);
 
     const formData = new FormData(e.currentTarget);
+    const contratoSelecionadoId = formData.get('contratoId');
+    
+    // Procura o contrato escolhido para pegar o valor correto e a descrição
+    const contratoInfo = LISTA_CONTRATOS.find(c => c.id === contratoSelecionadoId);
+
     const dados = {
-      cnpjPrestador: formData.get('cnpjPrestador'),
       cnpjTomador: formData.get('cnpjTomador'),
-      valorServicos: Number(formData.get('valorServicos')),
-      descricaoServico: formData.get('descricaoServico'),
-      codigoMunicipio: formData.get('codigoMunicipio'),
+      contratoId: contratoInfo?.id,
+      nomeContrato: contratoInfo?.nome,
+      valorServicos: contratoInfo?.valorMensal, // Valor vem direto e travado pelo contrato
+      descricaoServico: contratoInfo?.descricao
     };
 
     try {
@@ -29,10 +36,13 @@ export function FormularioNFSe() {
       const resultado = await response.json();
 
       if (!response.ok) {
-        throw new Error(resultado.erro || 'Erro ao emitir nota.');
+        throw new Error(resultado.erro || 'Erro ao processar.');
       }
 
-      setStatus({ tipo: 'sucesso', msg: `Nota emitida! Protocolo: ${resultado.dados.protocolo}` });
+      setStatus({ 
+        tipo: 'sucesso', 
+        msg: `Fatura Gerada! Contrato: ${dados.nomeContrato} | Código: ${resultado.dados.protocolo}` 
+      });
     } catch (error: any) {
       setStatus({ tipo: 'erro', msg: error.message });
     } finally {
@@ -42,16 +52,22 @@ export function FormularioNFSe() {
 
   return (
     <form onSubmit={handleSubmit} style={{ padding: '20px', maxWidth: '400px', display: 'flex', flexDirection: 'column', gap: '12px', background: '#fff', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
-      <h3 style={{ margin: '0 0 8px 0', color: '#333' }}>Emissor NFS-e Nacional</h3>
+      <h3 style={{ margin: '0 0 8px 0', color: '#333' }}>Faturamento por Contrato</h3>
       
-      <input name="cnpjPrestador" placeholder="CNPJ Prestador (Apenas números)" required style={{ padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }} />
-      <input name="cnpjTomador" placeholder="CNPJ Tomador (Apenas números)" required style={{ padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }} />
-      <input name="valorServicos" type="number" step="0.01" placeholder="Valor do Serviço (Ex: 150.00)" required style={{ padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }} />
-      <input name="codigoMunicipio" placeholder="Código IBGE do Município" required style={{ padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }} />
-      <textarea name="descricaoServico" placeholder="Descrição dos Serviços" required style={{ padding: '8px', border: '1px solid #ccc', borderRadius: '4px', height: '80px', resize: 'none' }} />
+      <input name="cnpjTomador" placeholder="CNPJ do Cliente (Apenas números)" required style={{ padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }} />
+      
+      {/* Campo Dropdown para selecionar o contrato vinculado */}
+      <label style={{ fontSize: '14px', color: '#666', marginBottom: '-6px' }}>Selecione o Contrato/Serviço:</label>
+      <select name="contratoId" required style={{ padding: '8px', border: '1px solid #ccc', borderRadius: '4px', background: '#fff' }}>
+        {LISTA_CONTRATOS.map((contrato) => (
+          <option key={contrato.id} value={contrato.id}>
+            {contrato.nome} (R$ {contrato.valorMensal.toFixed(2)})
+          </option>
+        ))}
+      </select>
 
       <button type="submit" disabled={loading} style={{ padding: '10px', background: '#0070f3', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>
-        {loading ? 'Transmitindo...' : 'Emitir Nota Fiscal'}
+        {loading ? 'Faturando...' : 'Vincular Contrato e Faturar'}
       </button>
 
       {status && (
