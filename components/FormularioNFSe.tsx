@@ -1,6 +1,6 @@
 'use client';
 import { useState } from 'react';
-// Importamos a lista de contratos que criamos
+// Importa os contratos direto da pasta utils que você acabou de criar
 import { LISTA_CONTRATOS } from '../utils/contratos';
 
 export function FormularioNFSe() {
@@ -15,14 +15,14 @@ export function FormularioNFSe() {
     const formData = new FormData(e.currentTarget);
     const contratoSelecionadoId = formData.get('contratoId');
     
-    // Procura o contrato escolhido para pegar o valor correto e a descrição
+    // Filtra na lista o contrato que o usuário escolheu no clique
     const contratoInfo = LISTA_CONTRATOS.find(c => c.id === contratoSelecionadoId);
 
     const dados = {
       cnpjTomador: formData.get('cnpjTomador'),
       contratoId: contratoInfo?.id,
       nomeContrato: contratoInfo?.nome,
-      valorServicos: contratoInfo?.valorMensal, // Valor vem direto e travado pelo contrato
+      valorServicos: contratoInfo?.valorMensal,
       descricaoServico: contratoInfo?.descricao
     };
 
@@ -36,12 +36,12 @@ export function FormularioNFSe() {
       const resultado = await response.json();
 
       if (!response.ok) {
-        throw new Error(resultado.erro || 'Erro ao processar.');
+        throw new Error(resultado.erro || 'Erro ao processar fatura.');
       }
 
       setStatus({ 
         tipo: 'sucesso', 
-        msg: `Fatura Gerada! Contrato: ${dados.nomeContrato} | Código: ${resultado.dados.protocolo}` 
+        msg: `Fatura Emitida! Contrato: ${dados.nomeContrato} | Código: ${resultado.dados.protocolo}` 
       });
     } catch (error: any) {
       setStatus({ tipo: 'erro', msg: error.message });
@@ -52,13 +52,12 @@ export function FormularioNFSe() {
 
   return (
     <form onSubmit={handleSubmit} style={{ padding: '20px', maxWidth: '400px', display: 'flex', flexDirection: 'column', gap: '12px', background: '#fff', borderRadius: '8px', boxShadow: '0 4px 6px rgba(0,0,0,0.1)' }}>
-      <h3 style={{ margin: '0 0 8px 0', color: '#333' }}>Faturamento por Contrato</h3>
+      <h3 style={{ margin: '0 0 8px 0', color: '#333' }}>Faturamento ContaFIT</h3>
       
       <input name="cnpjTomador" placeholder="CNPJ do Cliente (Apenas números)" required style={{ padding: '8px', border: '1px solid #ccc', borderRadius: '4px' }} />
       
-      {/* Campo Dropdown para selecionar o contrato vinculado */}
-      <label style={{ fontSize: '14px', color: '#666', marginBottom: '-6px' }}>Selecione o Contrato/Serviço:</label>
-      <select name="contratoId" required style={{ padding: '8px', border: '1px solid #ccc', borderRadius: '4px', background: '#fff' }}>
+      <label style={{ fontSize: '14px', color: '#666', marginBottom: '-6px' }}>Selecione o Serviço/Contrato:</label>
+      <select name="contratoId" required style={{ padding: '8px', border: '1px solid #ccc', borderRadius: '4px', background: '#fff', color: '#333' }}>
         {LISTA_CONTRATOS.map((contrato) => (
           <option key={contrato.id} value={contrato.id}>
             {contrato.nome} (R$ {contrato.valorMensal.toFixed(2)})
@@ -67,7 +66,7 @@ export function FormularioNFSe() {
       </select>
 
       <button type="submit" disabled={loading} style={{ padding: '10px', background: '#0070f3', color: '#fff', border: 'none', borderRadius: '4px', cursor: 'pointer', fontWeight: 'bold' }}>
-        {loading ? 'Faturando...' : 'Vincular Contrato e Faturar'}
+        {loading ? 'Processando...' : 'Vincular e Gerar Fatura'}
       </button>
 
       {status && (
