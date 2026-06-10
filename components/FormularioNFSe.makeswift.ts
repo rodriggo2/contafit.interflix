@@ -1,9 +1,10 @@
 // components/FormularioNFSe.makeswift.ts
-import { Makeswift } from '@makeswift/runtime/next'
+import { registerComponent } from '@makeswift/runtime/next'
 import { FormularioNFSe } from './FormularioNFSe'
 
-Makeswift.registerComponent(FormularioNFSe, {
+// Registrar componente no Makeswift (sintaxe correta)
+registerComponent(FormularioNFSe, {
   type: 'formulario-nfse',
-  label: 'Contafit / Emissor NFS-e',
-  props: {},
+  label: 'ContaFit / Emissor NFS-e',
+  props: {}
 })
