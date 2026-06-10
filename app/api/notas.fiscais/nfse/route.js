@@ -1,4 +1,3 @@
-// app/api/notas.fiscais/nfse/route.js
 import { NextResponse } from 'next/server';
 import { gerarEAssinarDPS, enviarParaOAmbienteNacional } from '../../../utils/nfse';
 
