@@ -2,7 +2,6 @@
 'use client';
 
 import Script from 'next/script';
-import Image from 'next/image';
 
 export default function LinksPage() {
   const pixelId = '1703806960639320';
@@ -34,15 +33,22 @@ export default function LinksPage() {
 
       <style jsx global>{`
         body { 
-          background-color: #0000ad !important; /* Azul oficial contaFIT */
+          background-color: #0000ad !important; 
           margin: 0;
           padding: 0;
+          -webkit-font-smoothing: antialiased;
         } 
         @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(20px); }
+          from { opacity: 0; transform: translateY(15px); }
           to { opacity: 1; transform: translateY(0); }
         }
-        .fade-in { animation: fadeInUp 0.6s ease-out forwards; }
+        .fade-in { animation: fadeInUp 0.5s ease-out forwards; }
+        
+        /* Ajuste para o botão não parecer pequeno no toque */
+        .btn-touch {
+          touch-action: manipulation;
+          user-select: none;
+        }
       `}</style>
 
       <main style={{
@@ -50,65 +56,90 @@ export default function LinksPage() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        padding: '60px 20px',
-        backgroundColor: '#0000ad', // Cor sólida conforme print
-        fontFamily: 'sans-serif'
+        padding: '50px 24px', // Aumentei o padding lateral para dar respiro
+        backgroundColor: '#0000ad',
+        fontFamily: 'system-ui, -apple-system, sans-serif'
       }}>
         
-        <div className="fade-in" style={{ maxWidth: '400px', width: '100%', textAlign: 'center' }}>
+        <div className="fade-in" style={{ maxWidth: '450px', width: '100%', textAlign: 'center' }}>
           
-          {/* LOGOTIPO contaFIT */}
-          <header style={{ marginBottom: '40px' }}>
-            <div style={{ marginBottom: '15px' }}>
-              {/* 
-                  DICA: Certifique-se de ter o logo branco em /public/logo-contafit.png 
-                  ou use a versão em texto estilizada abaixo se não tiver o arquivo agora
-              */}
-              <div style={{ color: 'white', fontSize: '38px', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <span style={{ border: '3px solid white', borderRadius: '8px', padding: '0 8px', marginRight: '10px', fontSize: '30px' }}>F</span>
-                conta<span style={{ fontWeight: '900' }}>FIT</span>
-              </div>
+          {/* LOGOTIPO contaFIT - MAIOR E MAIS IMPACTANTE */}
+          <header style={{ marginBottom: '50px' }}>
+            <div style={{ 
+              color: 'white', 
+              fontSize: '42px', // Aumentado
+              fontWeight: 'bold', 
+              display: 'flex', 
+              alignItems: 'center', 
+              justifyContent: 'center',
+              letterSpacing: '-1.5px'
+            }}>
+              <span style={{ 
+                border: '4px solid white', 
+                borderRadius: '12px', 
+                padding: '2px 12px', 
+                marginRight: '12px', 
+                fontSize: '32px',
+                fontWeight: '900'
+              }}>F</span>
+              conta<span style={{ fontWeight: '900' }}>FIT</span>
             </div>
-            <p style={{ color: '#72f3e8', fontWeight: '600', fontSize: '14px', letterSpacing: '1px', textTransform: 'uppercase' }}>
-              Contabilidade 100% Digital
+            <p style={{ 
+              color: '#72f3e8', 
+              fontWeight: '700', 
+              fontSize: '16px', // Aumentado
+              letterSpacing: '1.5px', 
+              textTransform: 'uppercase',
+              marginTop: '15px'
+            }}>
+              Contabilidade Digital Fitness
             </p>
           </header>
 
-          <nav style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+          {/* GRID DE BOTÕES - MAIORES PARA CELULAR */}
+          <nav style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
             
-            {/* BOTÃO CIANO - ABRIR EMPRESA (Destaque Principal) */}
             <LinkButton 
               href={links.abrirEmpresa} 
               label="Abra sua empresa grátis 🚀" 
               variant="primary" 
             />
 
-            {/* BOTÃO BRANCO - TROCAR DE CONTADOR */}
             <LinkButton 
               href={links.trocarContador} 
               label="Quero trocar de contador 🔄" 
               variant="secondary" 
             />
 
-            {/* BOTÃO GHOST - FALAR COM ESPECIALISTA */}
             <LinkButton 
               href={links.falarEspecialista} 
               label="Falar com um Especialista 💬" 
               variant="outline" 
             />
 
-            {/* SITE OFICIAL */}
             <a href={links.site} target="_blank" rel="noopener noreferrer" 
-               style={{ color: 'white', textDecoration: 'underline', fontSize: '14px', marginTop: '10px', opacity: 0.8 }}>
+               style={{ 
+                 color: 'white', 
+                 textDecoration: 'underline', 
+                 fontSize: '16px', 
+                 marginTop: '20px', 
+                 opacity: 0.9,
+                 fontWeight: '500'
+               }}>
               Acesse nosso site oficial
             </a>
           </nav>
 
-          <footer style={{ marginTop: '80px', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '20px' }}>
-            <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.6)', lineHeight: '1.6' }}>
-              <strong>contaFIT - Inteligência Contábil</strong><br />
+          <footer style={{ 
+            marginTop: '80px', 
+            borderTop: '1px solid rgba(255,255,255,0.15)', 
+            paddingTop: '30px',
+            paddingBottom: '40px' 
+          }}>
+            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.7)', lineHeight: '1.8' }}>
+              <strong>CONTAFIT INTELIGÊNCIA CONTÁBIL</strong><br />
               Do CNPJ à gestão, tudo flui. <br />
-              CRC-ES ES-005661/O-9
+              <span style={{ opacity: 0.5 }}>CRC-ES ES-005661/O-9</span>
             </p>
           </footer>
         </div>
@@ -117,39 +148,36 @@ export default function LinksPage() {
   );
 }
 
-// Sub-componente de botão para manter o código limpo
 function LinkButton({ href, label, variant }: { href: string, label: string, variant: 'primary' | 'secondary' | 'outline' }) {
   const styles: any = {
     primary: {
-      backgroundColor: '#72f3e8', // Ciano do site
+      backgroundColor: '#72f3e8',
       color: '#0000ad',
-      boxShadow: '0 4px 15px rgba(114, 243, 232, 0.3)',
+      boxShadow: '0 6px 20px rgba(114, 243, 232, 0.25)',
     },
     secondary: {
       backgroundColor: '#ffffff',
       color: '#0000ad',
-      boxShadow: '0 4px 15px rgba(255, 255, 255, 0.1)',
+      boxShadow: '0 6px 20px rgba(255, 255, 255, 0.1)',
     },
     outline: {
       backgroundColor: 'transparent',
       color: '#ffffff',
-      border: '1px solid rgba(255, 255, 255, 0.3)',
+      border: '2px solid rgba(255, 255, 255, 0.4)',
     }
   };
 
   const currentStyle = styles[variant];
 
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" 
-       onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
-       onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+    <a href={href} target="_blank" rel="noopener noreferrer" className="btn-touch"
        style={{
          display: 'block',
-         padding: '20px 24px',
-         borderRadius: '12px',
+         padding: '22px 24px', // Aumentado para preencher mais o celular
+         borderRadius: '16px', // Bordas mais modernas
          textDecoration: 'none',
          fontWeight: '800',
-         fontSize: '16px',
+         fontSize: '18px', // Fonte maior para leitura fácil no celular
          transition: 'all 0.2s ease',
          textAlign: 'center',
          ...currentStyle
