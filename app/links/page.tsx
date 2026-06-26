@@ -39,124 +39,117 @@ export default function LinksPage() {
           overflow-x: hidden;
           -webkit-tap-highlight-color: transparent;
         } 
-        @keyframes pulse {
-          0% { box-shadow: 0 0 0 0 rgba(114, 243, 232, 0.7); }
-          70% { box-shadow: 0 0 0 15px rgba(114, 243, 232, 0); }
+        @keyframes pulseGlow {
+          0% { box-shadow: 0 0 0 0 rgba(114, 243, 232, 0.6); }
+          70% { box-shadow: 0 0 0 20px rgba(114, 243, 232, 0); }
           100% { box-shadow: 0 0 0 0 rgba(114, 243, 232, 0); }
         }
-        .animate-pulse {
-          animation: pulse 2s infinite;
+        .btn-primary-animate {
+          animation: pulseGlow 2.5s infinite;
         }
-        @keyframes slideIn {
-          from { opacity: 0; transform: translateY(20px); }
+        @keyframes slideUp {
+          from { opacity: 0; transform: translateY(30px); }
           to { opacity: 1; transform: translateY(0); }
         }
-        .stagger-1 { animation: slideIn 0.4s ease forwards; }
-        .stagger-2 { animation: slideIn 0.6s ease forwards; }
-        .stagger-3 { animation: slideIn 0.8s ease forwards; }
+        .animate-entry { animation: slideUp 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
       `}</style>
 
       <main style={{
-        minHeight: '100dvh', // Dynamic Viewport Height para celular
+        minHeight: '100dvh', // Preenche 100% da tela do iPhone/Smartphone
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'space-between', // Distribui o conteúdo na tela cheia
-        padding: '40px 12px', // Margens laterais mínimas para o botão ficar largo
+        justifyContent: 'space-evenly', // Espalha o conteúdo verticalmente
+        padding: '20px 0',
         backgroundColor: '#0000ad',
+        backgroundImage: 'radial-gradient(circle at 50% 30%, #0000ff 0%, #0000ad 100%)',
         fontFamily: 'system-ui, -apple-system, sans-serif',
         boxSizing: 'border-box'
       }}>
         
-        {/* TOP SECTION: LOGO */}
-        <div style={{ width: '100%', textAlign: 'center' }}>
-          <header style={{ marginBottom: '40px' }}>
-            <div style={{ 
-              color: 'white', 
-              fontSize: '48px', 
-              fontWeight: '900', 
-              display: 'flex', 
-              alignItems: 'center', 
-              justifyContent: 'center',
-              letterSpacing: '-2px'
-            }}>
-              <span style={{ 
-                border: '4px solid white', 
-                borderRadius: '12px', 
-                padding: '2px 14px', 
-                marginRight: '12px', 
-                fontSize: '36px'
-              }}>F</span>
-              conta<span style={{ fontWeight: '900' }}>FIT</span>
-            </div>
-            <p style={{ 
-              color: '#72f3e8', 
-              fontWeight: '700', 
-              fontSize: '14px', 
-              letterSpacing: '3px', 
-              textTransform: 'uppercase',
-              marginTop: '12px'
-            }}>
-              Contabilidade Estratégica
-            </p>
-          </header>
-
-          {/* MIDDLE SECTION: BUTTONS (LARGURA MÁXIMA) */}
-          <nav style={{ 
+        {/* SECTION: LOGO (MAIOR) */}
+        <header className="animate-entry" style={{ width: '100%', textAlign: 'center' }}>
+          <div style={{ 
+            color: 'white', 
+            fontSize: 'min(14vw, 56px)', // Escala conforme a largura da tela
+            fontWeight: '900', 
             display: 'flex', 
-            flexDirection: 'column', 
-            gap: '16px',
-            width: '100%',
-            maxWidth: '500px', // Limite para tablets/desktop
-            margin: '0 auto'
+            alignItems: 'center', 
+            justifyContent: 'center',
+            letterSpacing: '-2px'
           }}>
-            
-            <div className="stagger-1">
-              <LinkButton 
-                href={links.abrirEmpresa} 
-                label="ABRA SUA EMPRESA GRÁTIS 🚀" 
-                variant="primary" 
-                pulse
-              />
-            </div>
+            <span style={{ 
+              border: 'min(1.2vw, 5px) solid white', 
+              borderRadius: '15px', 
+              padding: '2px 16px', 
+              marginRight: '15px',
+              fontSize: '0.8em'
+            }}>F</span>
+            conta<span style={{ fontWeight: '900' }}>FIT</span>
+          </div>
+          <p style={{ 
+            color: '#72f3e8', 
+            fontWeight: '700', 
+            fontSize: '16px', 
+            letterSpacing: '4px', 
+            textTransform: 'uppercase',
+            marginTop: '15px',
+            opacity: 0.9
+          }}>
+            Inteligência Contábil
+          </p>
+        </header>
 
-            <div className="stagger-2">
-              <LinkButton 
-                href={links.trocarContador} 
-                label="QUERO TROCAR DE CONTADOR 🔄" 
-                variant="secondary" 
-              />
-            </div>
-
-            <div className="stagger-3">
-              <LinkButton 
-                href={links.falarEspecialista} 
-                label="FALAR COM UM ESPECIALISTA 💬" 
-                variant="outline" 
-              />
-            </div>
-          </nav>
-        </div>
-
-        {/* BOTTOM SECTION: FOOTER */}
-        <footer style={{ 
-          width: '100%', 
-          textAlign: 'center', 
-          padding: '20px 0',
-          marginTop: '40px'
+        {/* SECTION: BOTOES (OCUPANDO 92% DA LARGURA) */}
+        <nav className="animate-entry" style={{ 
+          display: 'flex', 
+          flexDirection: 'column', 
+          gap: '20px',
+          width: '92%', 
+          maxWidth: '550px' 
         }}>
+          
+          <LinkButton 
+            href={links.abrirEmpresa} 
+            label="ABRA SUA EMPRESA GRÁTIS 🚀" 
+            variant="primary" 
+            animate
+          />
+
+          <LinkButton 
+            href={links.trocarContador} 
+            label="QUERO TROCAR DE CONTADOR 🔄" 
+            variant="secondary" 
+          />
+
+          <LinkButton 
+            href={links.falarEspecialista} 
+            label="FALAR COM UM ESPECIALISTA 💬" 
+            variant="outline" 
+          />
+        </nav>
+
+        {/* SECTION: FOOTER / SITE */}
+        <footer className="animate-entry" style={{ width: '100%', textAlign: 'center' }}>
           <a href={links.site} target="_blank" rel="noopener noreferrer" 
-             style={{ color: 'white', textDecoration: 'none', fontSize: '15px', fontWeight: '600', opacity: 0.8 }}>
+             style={{ 
+               color: 'white', 
+               textDecoration: 'none', 
+               fontSize: '18px', 
+               fontWeight: 'bold',
+               padding: '10px 20px',
+               borderBottom: '2px solid #72f3e8'
+             }}>
             www.contafit.com.br
           </a>
           <div style={{ 
-            marginTop: '25px', 
-            fontSize: '12px', 
+            marginTop: '40px', 
+            fontSize: '13px', 
             color: 'rgba(255,255,255,0.5)',
-            lineHeight: '1.5'
+            lineHeight: '1.6'
           }}>
-            <strong>CONTAFIT INTELIGÊNCIA CONTÁBIL</strong><br />
-            CRC-ES ES-005661/O-9
+            <strong>CONTAFIT CONTABILIDADE DIGITAL</strong><br />
+            ES-005661/O-9 • LGPD Compliant
           </div>
         </footer>
       </main>
@@ -164,7 +157,7 @@ export default function LinksPage() {
   );
 }
 
-function LinkButton({ href, label, variant, pulse }: { href: string, label: string, variant: 'primary' | 'secondary' | 'outline', pulse?: boolean }) {
+function LinkButton({ href, label, variant, animate }: { href: string, label: string, variant: 'primary' | 'secondary' | 'outline', animate?: boolean }) {
   const styles: any = {
     primary: {
       backgroundColor: '#72f3e8',
@@ -179,7 +172,7 @@ function LinkButton({ href, label, variant, pulse }: { href: string, label: stri
     outline: {
       backgroundColor: 'transparent',
       color: '#ffffff',
-      border: '2px solid rgba(255, 255, 255, 0.4)',
+      border: '2px solid rgba(255, 255, 255, 0.5)',
     }
   };
 
@@ -187,18 +180,18 @@ function LinkButton({ href, label, variant, pulse }: { href: string, label: stri
 
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" 
-       className={pulse ? 'animate-pulse' : ''}
+       className={animate ? 'btn-primary-animate' : ''}
        style={{
          display: 'flex',
          alignItems: 'center',
          justifyContent: 'center',
          width: '100%',
-         height: '74px', // Altura premium para fácil toque no celular
-         borderRadius: '18px',
+         height: '82px', // Altura GIGANTE para smartphones modernos
+         borderRadius: '20px', // Bordas mais arredondadas (estilo iOS)
          textDecoration: 'none',
          fontWeight: '900',
-         fontSize: '17px',
-         transition: 'all 0.2s ease',
+         fontSize: '20px', // Fonte maior
+         transition: 'all 0.3s ease',
          textAlign: 'center',
          boxSizing: 'border-box',
          letterSpacing: '0.5px',
