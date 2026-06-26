@@ -36,19 +36,13 @@ export default function LinksPage() {
           background-color: #0000ad !important; 
           margin: 0;
           padding: 0;
-          -webkit-font-smoothing: antialiased;
+          overflow-x: hidden;
         } 
         @keyframes fadeInUp {
-          from { opacity: 0; transform: translateY(15px); }
+          from { opacity: 0; transform: translateY(10px); }
           to { opacity: 1; transform: translateY(0); }
         }
         .fade-in { animation: fadeInUp 0.5s ease-out forwards; }
-        
-        /* Ajuste para o botão não parecer pequeno no toque */
-        .btn-touch {
-          touch-action: manipulation;
-          user-select: none;
-        }
       `}</style>
 
       <main style={{
@@ -56,18 +50,22 @@ export default function LinksPage() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        padding: '50px 24px', // Aumentei o padding lateral para dar respiro
+        padding: '40px 16px', // Reduzi de 24px para 16px para os botões ganharem largura
         backgroundColor: '#0000ad',
         fontFamily: 'system-ui, -apple-system, sans-serif'
       }}>
         
-        <div className="fade-in" style={{ maxWidth: '450px', width: '100%', textAlign: 'center' }}>
+        <div className="fade-in" style={{ 
+          width: '100%', 
+          maxWidth: '540px', // Aumentado para preencher melhor telas maiores
+          textAlign: 'center' 
+        }}>
           
-          {/* LOGOTIPO contaFIT - MAIOR E MAIS IMPACTANTE */}
-          <header style={{ marginBottom: '50px' }}>
+          {/* HEADER / LOGOTIPO */}
+          <header style={{ marginBottom: '45px', marginTop: '20px' }}>
             <div style={{ 
               color: 'white', 
-              fontSize: '42px', // Aumentado
+              fontSize: '44px', 
               fontWeight: 'bold', 
               display: 'flex', 
               alignItems: 'center', 
@@ -77,9 +75,9 @@ export default function LinksPage() {
               <span style={{ 
                 border: '4px solid white', 
                 borderRadius: '12px', 
-                padding: '2px 12px', 
+                padding: '2px 14px', 
                 marginRight: '12px', 
-                fontSize: '32px',
+                fontSize: '34px',
                 fontWeight: '900'
               }}>F</span>
               conta<span style={{ fontWeight: '900' }}>FIT</span>
@@ -87,17 +85,23 @@ export default function LinksPage() {
             <p style={{ 
               color: '#72f3e8', 
               fontWeight: '700', 
-              fontSize: '16px', // Aumentado
-              letterSpacing: '1.5px', 
+              fontSize: '15px', 
+              letterSpacing: '2px', 
               textTransform: 'uppercase',
-              marginTop: '15px'
+              marginTop: '15px',
+              opacity: 0.9
             }}>
-              Contabilidade Digital Fitness
+              Contabilidade Estratégica Fitness
             </p>
           </header>
 
-          {/* GRID DE BOTÕES - MAIORES PARA CELULAR */}
-          <nav style={{ display: 'flex', flexDirection: 'column', gap: '18px' }}>
+          {/* BOTÕES LARGOS */}
+          <nav style={{ 
+            display: 'flex', 
+            flexDirection: 'column', 
+            gap: '16px',
+            width: '100%' 
+          }}>
             
             <LinkButton 
               href={links.abrirEmpresa} 
@@ -120,26 +124,28 @@ export default function LinksPage() {
             <a href={links.site} target="_blank" rel="noopener noreferrer" 
                style={{ 
                  color: 'white', 
-                 textDecoration: 'underline', 
+                 textDecoration: 'none', 
                  fontSize: '16px', 
-                 marginTop: '20px', 
-                 opacity: 0.9,
-                 fontWeight: '500'
+                 marginTop: '25px', 
+                 fontWeight: '600',
+                 borderBottom: '1px solid rgba(255,255,255,0.3)',
+                 display: 'inline-block',
+                 paddingBottom: '2px'
                }}>
-              Acesse nosso site oficial
+              Visitar site oficial
             </a>
           </nav>
 
           <footer style={{ 
-            marginTop: '80px', 
-            borderTop: '1px solid rgba(255,255,255,0.15)', 
+            marginTop: '70px', 
+            borderTop: '1px solid rgba(255,255,255,0.1)', 
             paddingTop: '30px',
-            paddingBottom: '40px' 
+            paddingBottom: '30px'
           }}>
-            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.7)', lineHeight: '1.8' }}>
+            <p style={{ fontSize: '13px', color: 'rgba(255,255,255,0.6)', lineHeight: '1.6' }}>
               <strong>CONTAFIT INTELIGÊNCIA CONTÁBIL</strong><br />
               Do CNPJ à gestão, tudo flui. <br />
-              <span style={{ opacity: 0.5 }}>CRC-ES ES-005661/O-9</span>
+              <span style={{ fontSize: '11px' }}>CRC-ES ES-005661/O-9</span>
             </p>
           </footer>
         </div>
@@ -153,12 +159,10 @@ function LinkButton({ href, label, variant }: { href: string, label: string, var
     primary: {
       backgroundColor: '#72f3e8',
       color: '#0000ad',
-      boxShadow: '0 6px 20px rgba(114, 243, 232, 0.25)',
     },
     secondary: {
       backgroundColor: '#ffffff',
       color: '#0000ad',
-      boxShadow: '0 6px 20px rgba(255, 255, 255, 0.1)',
     },
     outline: {
       backgroundColor: 'transparent',
@@ -170,16 +174,19 @@ function LinkButton({ href, label, variant }: { href: string, label: string, var
   const currentStyle = styles[variant];
 
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" className="btn-touch"
+    <a href={href} target="_blank" rel="noopener noreferrer" 
        style={{
          display: 'block',
-         padding: '22px 24px', // Aumentado para preencher mais o celular
-         borderRadius: '16px', // Bordas mais modernas
+         width: '100%', // Garante que o botão use 100% do container
+         boxSizing: 'border-box',
+         padding: '22px 20px',
+         borderRadius: '14px',
          textDecoration: 'none',
          fontWeight: '800',
-         fontSize: '18px', // Fonte maior para leitura fácil no celular
-         transition: 'all 0.2s ease',
+         fontSize: '18px',
+         transition: 'transform 0.2s ease',
          textAlign: 'center',
+         boxShadow: '0 4px 12px rgba(0,0,0,0.15)',
          ...currentStyle
        }}>
       {label}
