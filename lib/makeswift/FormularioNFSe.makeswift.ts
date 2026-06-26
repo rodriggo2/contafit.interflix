@@ -1,7 +1,6 @@
 // lib/makeswift/FormularioNFSe.makeswift.ts
 import { Makeswift } from '@makeswift/runtime/next'
-// MUDANÇA AQUI: O caminho provavelmente deve apontar para a pasta components
-// Ajuste para '../../components/FormularioNFSe' se ele estiver lá
+// Se o seu componente FormularioNFSe.tsx estiver na pasta /components:
 import { FormularioNFSe } from '../../components/FormularioNFSe' 
 
 Makeswift.registerComponent(FormularioNFSe, {
