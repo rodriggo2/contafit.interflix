@@ -2,41 +2,22 @@
 'use client';
 
 import Script from 'next/script';
-import React from 'react';
-
-// 1. Definição de Tipos para evitar erros de Build (TS)
-interface LinkButtonProps {
-  href: string;
-  label: string;
-  bgColor: string;
-  textColor: string;
-  onClick?: () => void;
-}
-
-// 2. Configurações
-const CONFIG = {
-  pixelId: '1703806960639320',
-  whatsappNumber: '5527935008000',
-  whatsappMessage: encodeURIComponent('Olá! Vim pelo link da Bio e gostaria de uma consultoria contábil.'),
-  links: {
-    site: 'https://contafit.com.br',
-    conteudos: 'https://contafit.com.br', 
-  }
-};
 
 export default function LinksPage() {
+  const pixelId = '1703806960639320';
+  const whatsappNumber = '5527935008000';
+  const whatsappMessage = encodeURIComponent('Olá! Vim pelo link da Bio e gostaria de uma consultoria contábil.');
   
-  // Função de rastreamento segura para TypeScript
-  const trackClick = (eventName: string) => {
-    if (typeof window !== 'undefined' && (window as any).fbq) {
-      (window as any).fbq('trackCustom', eventName);
-    }
+  const links = {
+    whatsapp: `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`,
+    site: 'https://contafit.com.br',
+    conteudos: 'https://contafit.com.br',
   };
 
   return (
     <>
-      {/* Meta Pixel */}
-      <Script id="meta-pixel" strategy="afterInteractive">
+      {/* Configuração do Meta Pixel - Injetado de forma segura */}
+      <Script id="fb-pixel" strategy="afterInteractive">
         {`
           !function(f,b,e,v,n,t,s)
           {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -46,116 +27,121 @@ export default function LinksPage() {
           t.src=v;s=b.getElementsByTagName(e)[0];
           s.parentNode.insertBefore(t,s)}(window, document,'script',
           'https://connect.facebook.net/en_US/fbevents.js');
-          fbq('init', '${CONFIG.pixelId}');
+          fbq('init', '${pixelId}');
           fbq('track', 'PageView');
         `}
       </Script>
 
-      <main
+      {/* Estilos CSS Inline para evitar erros de TypeScript com Hover */}
+      <style jsx global>{`
+        .link-button {
+          display: block;
+          width: 100%;
+          padding: 16px;
+          text-decoration: none;
+          font-weight: 600;
+          font-size: 15px;
+          border-radius: 9999px;
+          margin-bottom: 14px;
+          transition: all 0.2s ease;
+          text-align: center;
+        }
+        .link-button:hover {
+          transform: translateY(-2px);
+          filter: brightness(0.95);
+          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+        }
+      `}</style>
+
+      <div
         style={{
           backgroundColor: '#0f172a',
-          backgroundImage: 'radial-gradient(circle at top, #1e293b 0%, #0f172a 100%)',
           color: '#f8fafc',
           fontFamily: 'sans-serif',
           display: 'flex',
           flexDirection: 'column',
           minHeight: '100vh',
           alignItems: 'center',
+          justifyContent: 'flex-start',
           padding: '60px 20px',
         }}
       >
         <div style={{ maxWidth: '400px', width: '100%', textAlign: 'center' }}>
           
-          <header style={{ marginBottom: '40px' }}>
-            <h1 style={{ fontSize: '36px', fontWeight: '800', letterSpacing: '-1.5px', marginBottom: '12px' }}>
-              conta<span style={{ color: '#10b981' }}>FIT</span>
+          <div style={{ marginBottom: '32px' }}>
+            <h1 style={{ fontSize: '32px', fontWeight: '800', marginBottom: '8px', letterSpacing: '-1px' }}>
+              conta<span style={{ color: '#10b981', fontWeight: '900' }}>FIT</span>
             </h1>
-            <p style={{ fontSize: '15px', color: '#94a3b8', lineHeight: '1.5' }}>
-              Contabilidade Digital Especializada no <br />
-              <strong>Mercado Fitness 🏋️</strong>
+            <p style={{ fontSize: '14px', color: '#94a3b8' }}>
+              Contabilidade Digital Especializada no Mercado Fitness 🏋️
             </p>
-          </header>
-
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <LinkButton 
-              href={`https://wa.me/${CONFIG.whatsappNumber}?text=${CONFIG.whatsappMessage}`}
-              label="Falar Conosco no WhatsApp 💬"
-              bgColor="#25D366"
-              textColor="#fff"
-              onClick={() => trackClick('ClickWhatsApp')}
-            />
-
-            <LinkButton 
-              href={CONFIG.links.site}
-              label="Conheça Nosso Site Oficial 🌐"
-              bgColor="#ffffff"
-              textColor="#0f172a"
-              onClick={() => trackClick('ClickSite')}
-            />
-
-            <LinkButton 
-              href={CONFIG.links.conteudos}
-              label="Conteúdos e Planejamento 📊"
-              bgColor="#ffffff"
-              textColor="#0f172a"
-              onClick={() => trackClick('ClickConteudos')}
-            />
           </div>
+
+          {/* Botão WhatsApp */}
+          <a
+            href={links.whatsapp}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-button"
+            style={{
+              backgroundColor: '#25D366',
+              color: '#ffffff',
+              boxShadow: '0 4px 12px rgba(37, 211, 102, 0.2)',
+            }}
+          >
+            Falar Conosco no WhatsApp 💬
+          </a>
+
+          {/* Botão Site Oficial */}
+          <a
+            href={links.site}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-button"
+            style={{
+              backgroundColor: '#ffffff',
+              color: '#0f172a',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+            }}
+          >
+            Conheça Nosso Site Oficial 🌐
+          </a>
+
+          {/* Botão Conteúdos */}
+          <a
+            href={links.conteudos}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="link-button"
+            style={{
+              backgroundColor: '#ffffff',
+              color: '#0f172a',
+              boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+            }}
+          >
+            Conteúdos e Planejamento Tributário 📊
+          </a>
 
           <footer
             style={{
-              fontSize: '12px',
+              fontSize: '11px',
               color: '#64748b',
-              lineHeight: '1.8',
-              marginTop: '50px',
-              paddingTop: '20px',
-              borderTop: '1px solid #1e293b'
+              lineHeight: '1.6',
+              marginTop: '40px',
+              borderTop: '1px solid #1e293b',
+              paddingTop: '20px'
             }}
           >
             <strong>contaFIT - Inteligência Contábil</strong>
             <br />
-            CRC-ES nº ES-005661/O-9
+            Registrada no CRC-ES nº ES-005661/O-9
             <br />
-            <div style={{ marginTop: '12px', color: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px' }}>
-              🔒 Conexão Segura • LGPD
-            </div>
+            <span style={{ color: '#10b981', fontWeight: '600', marginTop: '8px', display: 'block' }}>
+              🔒 Conexão Segura &bull; LGPD
+            </span>
           </footer>
         </div>
-      </main>
+      </div>
     </>
-  );
-}
-
-// Sub-componente com Tipagem Correta para passar no Build
-function LinkButton({ href, label, bgColor, textColor, onClick }: LinkButtonProps) {
-  const [isHovered, setIsHovered] = React.useState(false);
-
-  return (
-    <a
-      href={href}
-      target="_blank"
-      rel="noopener noreferrer"
-      onClick={onClick}
-      onMouseEnter={() => setIsHovered(true)}
-      onMouseLeave={() => setIsHovered(false)}
-      style={{
-        display: 'block',
-        width: '100%',
-        padding: '18px 20px',
-        backgroundColor: bgColor,
-        color: textColor,
-        textDecoration: 'none',
-        fontWeight: '700',
-        fontSize: '15px',
-        borderRadius: '12px',
-        transition: 'all 0.2s ease',
-        boxShadow: isHovered 
-          ? '0 10px 15px -3px rgba(0, 0, 0, 0.2)' 
-          : '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
-        transform: isHovered ? 'scale(1.02)' : 'scale(1)',
-      }}
-    >
-      {label}
-    </a>
   );
 }
