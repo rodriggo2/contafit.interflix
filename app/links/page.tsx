@@ -2,21 +2,31 @@
 'use client';
 
 import Script from 'next/script';
+import React from 'react';
 
-// Configurações e Links
+// 1. Definição de Tipos para evitar erros de Build (TS)
+interface LinkButtonProps {
+  href: string;
+  label: string;
+  bgColor: string;
+  textColor: string;
+  onClick?: () => void;
+}
+
+// 2. Configurações
 const CONFIG = {
   pixelId: '1703806960639320',
   whatsappNumber: '5527935008000',
   whatsappMessage: encodeURIComponent('Olá! Vim pelo link da Bio e gostaria de uma consultoria contábil.'),
   links: {
     site: 'https://contafit.com.br',
-    conteudos: 'https://contafit.com.br/conteudos', // Exemplo de path
+    conteudos: 'https://contafit.com.br', 
   }
 };
 
 export default function LinksPage() {
   
-  // Função para rastrear cliques no Meta Pixel
+  // Função de rastreamento segura para TypeScript
   const trackClick = (eventName: string) => {
     if (typeof window !== 'undefined' && (window as any).fbq) {
       (window as any).fbq('trackCustom', eventName);
@@ -25,7 +35,7 @@ export default function LinksPage() {
 
   return (
     <>
-      {/* Meta Pixel - Carregamento Otimizado */}
+      {/* Meta Pixel */}
       <Script id="meta-pixel" strategy="afterInteractive">
         {`
           !function(f,b,e,v,n,t,s)
@@ -46,7 +56,7 @@ export default function LinksPage() {
           backgroundColor: '#0f172a',
           backgroundImage: 'radial-gradient(circle at top, #1e293b 0%, #0f172a 100%)',
           color: '#f8fafc',
-          fontFamily: 'system-ui, -apple-system, sans-serif',
+          fontFamily: 'sans-serif',
           display: 'flex',
           flexDirection: 'column',
           minHeight: '100vh',
@@ -56,20 +66,17 @@ export default function LinksPage() {
       >
         <div style={{ maxWidth: '400px', width: '100%', textAlign: 'center' }}>
           
-          {/* Logo / Header */}
           <header style={{ marginBottom: '40px' }}>
-            <div style={{ fontSize: '36px', fontWeight: '800', letterSpacing: '-1.5px', marginBottom: '12px' }}>
+            <h1 style={{ fontSize: '36px', fontWeight: '800', letterSpacing: '-1.5px', marginBottom: '12px' }}>
               conta<span style={{ color: '#10b981' }}>FIT</span>
-            </div>
+            </h1>
             <p style={{ fontSize: '15px', color: '#94a3b8', lineHeight: '1.5' }}>
               Contabilidade Digital Especializada no <br />
               <strong>Mercado Fitness 🏋️</strong>
             </p>
           </header>
 
-          {/* Grid de Botões */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            
             <LinkButton 
               href={`https://wa.me/${CONFIG.whatsappNumber}?text=${CONFIG.whatsappMessage}`}
               label="Falar Conosco no WhatsApp 💬"
@@ -93,7 +100,6 @@ export default function LinksPage() {
               textColor="#0f172a"
               onClick={() => trackClick('ClickConteudos')}
             />
-
           </div>
 
           <footer
@@ -111,7 +117,7 @@ export default function LinksPage() {
             CRC-ES nº ES-005661/O-9
             <br />
             <div style={{ marginTop: '12px', color: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px' }}>
-              <span style={{ fontSize: '14px' }}>🔒</span> Conexão Segura • LGPD
+              🔒 Conexão Segura • LGPD
             </div>
           </footer>
         </div>
@@ -120,16 +126,18 @@ export default function LinksPage() {
   );
 }
 
-/**
- * Componente de Botão Otimizado
- */
-function LinkButton({ href, label, bgColor, textColor, onClick }: any) {
+// Sub-componente com Tipagem Correta para passar no Build
+function LinkButton({ href, label, bgColor, textColor, onClick }: LinkButtonProps) {
+  const [isHovered, setIsHovered] = React.useState(false);
+
   return (
     <a
       href={href}
       target="_blank"
       rel="noopener noreferrer"
       onClick={onClick}
+      onMouseEnter={() => setIsHovered(true)}
+      onMouseLeave={() => setIsHovered(false)}
       style={{
         display: 'block',
         width: '100%',
@@ -140,16 +148,11 @@ function LinkButton({ href, label, bgColor, textColor, onClick }: any) {
         fontWeight: '700',
         fontSize: '15px',
         borderRadius: '12px',
-        transition: 'transform 0.2s ease, box-shadow 0.2s ease',
-        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-      }}
-      onMouseOver={(e) => {
-        e.currentTarget.style.transform = 'scale(1.02)';
-        e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.2)';
-      }}
-      onMouseOut={(e) => {
-        e.currentTarget.style.transform = 'scale(1)';
-        e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+        transition: 'all 0.2s ease',
+        boxShadow: isHovered 
+          ? '0 10px 15px -3px rgba(0, 0, 0, 0.2)' 
+          : '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+        transform: isHovered ? 'scale(1.02)' : 'scale(1)',
       }}
     >
       {label}
