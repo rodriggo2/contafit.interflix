@@ -5,7 +5,11 @@ import { runtime } from './runtime'
 
 strict(process.env.MAKESWIFT_SITE_API_KEY, 'MAKESWIFT_SITE_API_KEY is required')
 
-// MUDANÇA AQUI: de 'client' para 'makeswift'
-export const makeswift = new Makeswift(process.env.MAKESWIFT_SITE_API_KEY, {
+// Criamos a instância
+const makeswiftInstance = new Makeswift(process.env.MAKESWIFT_SITE_API_KEY, {
   runtime,
 })
+
+// Exportamos com os dois nomes para não quebrar nenhum arquivo do projeto
+export const client = makeswiftInstance
+export const makeswift = makeswiftInstance
