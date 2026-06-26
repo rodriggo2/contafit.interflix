@@ -14,17 +14,7 @@ export default function LinksPage() {
   };
 
   return (
-    <main style={{
-      backgroundColor: '#020617',
-      backgroundImage: 'radial-gradient(circle at 50% -20%, #1e293b 0%, #020617 80%)',
-      minHeight: '100vh',
-      display: 'flex',
-      flexDirection: 'column',
-      alignItems: 'center',
-      padding: '60px 20px',
-      color: '#f8fafc',
-      fontFamily: 'sans-serif'
-    }}>
+    <>
       <Script id="fb-pixel" strategy="afterInteractive">
         {`
           !function(f,b,e,v,n,t,s)
@@ -40,44 +30,74 @@ export default function LinksPage() {
         `}
       </Script>
 
-      <div style={{ maxWidth: '400px', width: '100%', textAlign: 'center' }}>
-        <div style={{ 
-          width: '70px', height: '70px', borderRadius: '50%', background: '#10b981',
-          margin: '0 auto 20px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-          boxShadow: '0 0 20px rgba(16, 185, 129, 0.4)'
-        }}>
-          <span style={{ fontSize: '30px' }}>🏋️</span>
+      <style jsx global>{`
+        body { background-color: #020617 !important; } /* Força o fundo escuro no layout global */
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in { animation: fadeInUp 0.5s ease-out forwards; }
+      `}</style>
+
+      <main style={{
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+        padding: '40px 20px',
+        background: 'radial-gradient(circle at 50% 0%, #1e293b 0%, #020617 100%)',
+      }}>
+        <div className="fade-in" style={{ maxWidth: '400px', width: '100%', textAlign: 'center' }}>
+          
+          <header style={{ marginBottom: '40px' }}>
+            <div style={{ 
+              width: '80px', height: '80px', borderRadius: '24px', 
+              background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+              margin: '0 auto 20px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              boxShadow: '0 10px 25px -5px rgba(16, 185, 129, 0.4)'
+            }}>
+              <span style={{ fontSize: '35px' }}>🏋️</span>
+            </div>
+            <h1 style={{ fontSize: '32px', fontWeight: '900', color: '#fff', letterSpacing: '-1.5px', margin: 0 }}>
+              conta<span style={{ color: '#10b981' }}>FIT</span>
+            </h1>
+            <p style={{ color: '#94a3b8', marginTop: '8px', fontSize: '15px' }}>
+              Contabilidade Estratégica Fitness
+            </p>
+          </header>
+
+          <nav style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <LinkButton href={links.whatsapp} label="Consultoria VIP WhatsApp 💬" primary />
+            <LinkButton href={links.planejamento} label="Planejamento Tributário 📊" />
+            <LinkButton href={links.site} label="Nosso Site Oficial 🌐" />
+          </nav>
+
+          <footer style={{ marginTop: '60px', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '20px' }}>
+            <p style={{ fontSize: '11px', color: '#64748b', textTransform: 'uppercase', letterSpacing: '1px' }}>
+              CONTAFIT • CRC-ES ES-005661/O-9
+            </p>
+          </footer>
         </div>
-
-        <h1 style={{ fontSize: '32px', fontWeight: '800', marginBottom: '8px', letterSpacing: '-1px' }}>
-          conta<span style={{ color: '#10b981' }}>FIT</span>
-        </h1>
-        <p style={{ fontSize: '14px', color: '#94a3b8', marginBottom: '40px' }}>
-          Contabilidade Especializada no Mercado Fitness
-        </p>
-
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '14px' }}>
-          <LinkCard href={links.whatsapp} label="Consultoria WhatsApp 💬" bg="#10b981" color="#fff" />
-          <LinkCard href={links.planejamento} label="Planejamento Tributário 📊" bg="rgba(255,255,255,0.05)" color="#fff" border="1px solid rgba(255,255,255,0.1)" />
-          <LinkCard href={links.site} label="Nosso Site Oficial 🌐" bg="rgba(255,255,255,0.05)" color="#fff" border="1px solid rgba(255,255,255,0.1)" />
-        </div>
-
-        <footer style={{ marginTop: '50px', fontSize: '11px', color: '#64748b' }}>
-          <strong>CONTAFIT CONTABILIDADE</strong><br />
-          CRC-ES nº ES-005661/O-9
-        </footer>
-      </div>
-    </main>
+      </main>
+    </>
   );
 }
 
-function LinkCard({ href, label, bg, color, border }: any) {
+function LinkButton({ href, label, primary }: { href: string, label: string, primary?: boolean }) {
   return (
     <a href={href} target="_blank" rel="noopener noreferrer" style={{
-      display: 'block', padding: '18px', borderRadius: '12px', textDecoration: 'none',
-      fontWeight: '600', fontSize: '15px', transition: '0.2s',
-      backgroundColor: bg, color: color, border: border || 'none',
-      textAlign: 'center'
+      display: 'block',
+      padding: '18px 24px',
+      borderRadius: '16px',
+      textDecoration: 'none',
+      fontWeight: '700',
+      fontSize: '16px',
+      transition: 'all 0.2s ease',
+      backgroundColor: primary ? '#10b981' : 'rgba(255, 255, 255, 0.05)',
+      color: '#fff',
+      border: primary ? 'none' : '1px solid rgba(255, 255, 255, 0.1)',
+      boxShadow: primary ? '0 4px 15px rgba(16, 185, 129, 0.3)' : 'none',
     }}>
       {label}
     </a>
