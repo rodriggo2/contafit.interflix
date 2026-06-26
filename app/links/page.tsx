@@ -1,4 +1,3 @@
-// app/links/page.tsx
 'use client';
 
 import Script from 'next/script';
@@ -6,17 +5,15 @@ import Script from 'next/script';
 export default function LinksPage() {
   const pixelId = '1703806960639320';
   const whatsappNumber = '5527935008000';
-  const whatsappMessage = encodeURIComponent('Olá! Vim pelo link da Bio e gostaria de uma consultoria contábil.');
-  
+
   const links = {
-    whatsapp: `https://wa.me/${whatsappNumber}?text=${whatsappMessage}`,
+    whatsappGeral: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Olá! Vim pelo link da Bio e gostaria de uma consultoria.')}`,
+    whatsappPlanejamento: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Olá! Quero saber mais sobre Planejamento Tributário.')}`,
     site: 'https://contafit.com.br',
-    conteudos: 'https://contafit.com.br',
   };
 
   return (
     <>
-      {/* Configuração do Meta Pixel - Injetado de forma segura */}
       <Script id="fb-pixel" strategy="afterInteractive">
         {`
           !function(f,b,e,v,n,t,s)
@@ -32,113 +29,95 @@ export default function LinksPage() {
         `}
       </Script>
 
-      {/* Estilos CSS Inline para evitar erros de TypeScript com Hover */}
       <style jsx global>{`
-        .link-button {
-          display: block;
-          width: 100%;
-          padding: 16px;
-          text-decoration: none;
-          font-weight: 600;
-          font-size: 15px;
-          border-radius: 9999px;
-          margin-bottom: 14px;
-          transition: all 0.2s ease;
-          text-align: center;
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .animate-fade { animation: fadeIn 0.6s ease-out forwards; }
+        
+        .glass-button {
+          background: rgba(255, 255, 255, 0.05);
+          backdrop-filter: blur(10px);
+          border: 1px solid rgba(255, 255, 255, 0.1);
+          color: white;
+          transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .link-button:hover {
-          transform: translateY(-2px);
-          filter: brightness(0.95);
-          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.2);
+        .glass-button:hover {
+          background: rgba(255, 255, 255, 0.12);
+          border: 1px solid rgba(16, 185, 129, 0.5);
+          transform: scale(1.02);
+          box-shadow: 0 0 20px rgba(16, 185, 129, 0.2);
         }
       `}</style>
 
-      <div
-        style={{
-          backgroundColor: '#0f172a',
-          color: '#f8fafc',
-          fontFamily: 'sans-serif',
-          display: 'flex',
-          flexDirection: 'column',
-          minHeight: '100vh',
-          alignItems: 'center',
-          justifyContent: 'flex-start',
-          padding: '60px 20px',
-        }}
-      >
-        <div style={{ maxWidth: '400px', width: '100%', textAlign: 'center' }}>
+      <div style={{
+        backgroundColor: '#020617',
+        backgroundImage: 'radial-gradient(circle at 50% -20%, #1e293b 0%, #020617 80%)',
+        minHeight: '100vh',
+        display: 'flex',
+        flexDirection: 'column',
+        alignItems: 'center',
+        padding: '80px 20px',
+        color: '#f8fafc',
+        fontFamily: 'system-ui, -apple-system, sans-serif'
+      }}>
+        
+        <div className="animate-fade" style={{ maxWidth: '400px', width: '100%', textAlign: 'center' }}>
           
-          <div style={{ marginBottom: '32px' }}>
-            <h1 style={{ fontSize: '32px', fontWeight: '800', marginBottom: '8px', letterSpacing: '-1px' }}>
-              conta<span style={{ color: '#10b981', fontWeight: '900' }}>FIT</span>
-            </h1>
-            <p style={{ fontSize: '14px', color: '#94a3b8' }}>
-              Contabilidade Digital Especializada no Mercado Fitness 🏋️
-            </p>
+          {/* Avatar/Icone de Especialista */}
+          <div style={{ 
+            width: '80px', height: '80px', borderRadius: '50%', background: 'linear-gradient(135deg, #10b981, #059669)',
+            margin: '0 auto 24px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+            boxShadow: '0 0 30px rgba(16, 185, 129, 0.3)'
+          }}>
+            <span style={{ fontSize: '32px' }}>🏋️</span>
           </div>
 
-          {/* Botão WhatsApp */}
-          <a
-            href={links.whatsapp}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="link-button"
-            style={{
-              backgroundColor: '#25D366',
-              color: '#ffffff',
-              boxShadow: '0 4px 12px rgba(37, 211, 102, 0.2)',
-            }}
-          >
-            Falar Conosco no WhatsApp 💬
-          </a>
+          <h1 style={{ fontSize: '36px', fontWeight: '800', letterSpacing: '-1.5px', marginBottom: '8px' }}>
+            conta<span style={{ color: '#10b981' }}>FIT</span>
+          </h1>
+          <p style={{ fontSize: '16px', color: '#94a3b8', marginBottom: '48px', fontWeight: '400' }}>
+            Inteligência Contábil para o <br />
+            <span style={{ color: '#f8fafc', fontWeight: '600' }}>Ecossistema Fitness</span>
+          </p>
 
-          {/* Botão Site Oficial */}
-          <a
-            href={links.site}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="link-button"
-            style={{
-              backgroundColor: '#ffffff',
-              color: '#0f172a',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-            }}
-          >
-            Conheça Nosso Site Oficial 🌐
-          </a>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            
+            <a href={links.whatsappGeral} target="_blank" rel="noopener noreferrer" 
+               className="glass-button" style={{
+                 padding: '20px', borderRadius: '16px', textDecoration: 'none', fontWeight: '700', fontSize: '16px',
+                 background: '#10b981', color: '#fff', border: 'none'
+               }}>
+              Consultoria via WhatsApp 💬
+            </a>
 
-          {/* Botão Conteúdos */}
-          <a
-            href={links.conteudos}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="link-button"
-            style={{
-              backgroundColor: '#ffffff',
-              color: '#0f172a',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-            }}
-          >
-            Conteúdos e Planejamento Tributário 📊
-          </a>
+            <a href={links.whatsappPlanejamento} target="_blank" rel="noopener noreferrer" 
+               className="glass-button" style={{
+                 padding: '20px', borderRadius: '16px', textDecoration: 'none', fontWeight: '600', fontSize: '16px',
+                 display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px'
+               }}>
+               <span>📊</span> Planejamento Tributário
+            </a>
 
-          <footer
-            style={{
-              fontSize: '11px',
-              color: '#64748b',
-              lineHeight: '1.6',
-              marginTop: '40px',
-              borderTop: '1px solid #1e293b',
-              paddingTop: '20px'
-            }}
-          >
-            <strong>contaFIT - Inteligência Contábil</strong>
-            <br />
-            Registrada no CRC-ES nº ES-005661/O-9
-            <br />
-            <span style={{ color: '#10b981', fontWeight: '600', marginTop: '8px', display: 'block' }}>
-              🔒 Conexão Segura &bull; LGPD
-            </span>
+            <a href={links.site} target="_blank" rel="noopener noreferrer" 
+               className="glass-button" style={{
+                 padding: '20px', borderRadius: '16px', textDecoration: 'none', fontWeight: '600', fontSize: '16px',
+                 display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px'
+               }}>
+               <span>🌐</span> Site Oficial
+            </a>
+
+          </div>
+
+          <footer style={{ marginTop: '64px', opacity: 0.6 }}>
+            <p style={{ fontSize: '12px', letterSpacing: '0.5px' }}>
+              <strong>CONTAFIT CONTABILIDADE</strong><br />
+              CRC-ES nº ES-005661/O-9
+            </p>
+            <div style={{ 
+              marginTop: '20px', fontSize: '11px', display: 'flex', alignItems: 'center', 
+              justifyContent: 'center', gap: '6px', color: '#10b981' 
+            }}>
+              <span style={{ fontSize: '14px' }}>🔒</span> Conexão Criptografada • LGPD
+            </div>
           </footer>
         </div>
       </div>
