@@ -2,14 +2,16 @@
 'use client';
 
 import Script from 'next/script';
+import Image from 'next/image';
 
 export default function LinksPage() {
   const pixelId = '1703806960639320';
   const whatsappNumber = '5527935008000';
 
   const links = {
-    whatsapp: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Olá! Vim pelo link da Bio e gostaria de uma consultoria.')}`,
-    planejamento: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Olá! Quero saber mais sobre Planejamento Tributário.')}`,
+    abrirEmpresa: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Olá! Vi o link na Bio e quero abrir minha empresa gratuitamente com a contaFIT.')}`,
+    trocarContador: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Olá! Já tenho empresa e gostaria de trocar de contador para a contaFIT.')}`,
+    falarEspecialista: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Olá! Gostaria de falar com um especialista da contaFIT.')}`,
     site: 'https://contafit.com.br',
   };
 
@@ -31,12 +33,16 @@ export default function LinksPage() {
       </Script>
 
       <style jsx global>{`
-        body { background-color: #020617 !important; } /* Força o fundo escuro no layout global */
+        body { 
+          background-color: #0000ad !important; /* Azul oficial contaFIT */
+          margin: 0;
+          padding: 0;
+        } 
         @keyframes fadeInUp {
           from { opacity: 0; transform: translateY(20px); }
           to { opacity: 1; transform: translateY(0); }
         }
-        .fade-in { animation: fadeInUp 0.5s ease-out forwards; }
+        .fade-in { animation: fadeInUp 0.6s ease-out forwards; }
       `}</style>
 
       <main style={{
@@ -44,38 +50,65 @@ export default function LinksPage() {
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'center',
-        padding: '40px 20px',
-        background: 'radial-gradient(circle at 50% 0%, #1e293b 0%, #020617 100%)',
+        padding: '60px 20px',
+        backgroundColor: '#0000ad', // Cor sólida conforme print
+        fontFamily: 'sans-serif'
       }}>
+        
         <div className="fade-in" style={{ maxWidth: '400px', width: '100%', textAlign: 'center' }}>
           
+          {/* LOGOTIPO contaFIT */}
           <header style={{ marginBottom: '40px' }}>
-            <div style={{ 
-              width: '80px', height: '80px', borderRadius: '24px', 
-              background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
-              margin: '0 auto 20px', display: 'flex', alignItems: 'center', justifyContent: 'center',
-              boxShadow: '0 10px 25px -5px rgba(16, 185, 129, 0.4)'
-            }}>
-              <span style={{ fontSize: '35px' }}>🏋️</span>
+            <div style={{ marginBottom: '15px' }}>
+              {/* 
+                  DICA: Certifique-se de ter o logo branco em /public/logo-contafit.png 
+                  ou use a versão em texto estilizada abaixo se não tiver o arquivo agora
+              */}
+              <div style={{ color: 'white', fontSize: '38px', fontWeight: 'bold', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <span style={{ border: '3px solid white', borderRadius: '8px', padding: '0 8px', marginRight: '10px', fontSize: '30px' }}>F</span>
+                conta<span style={{ fontWeight: '900' }}>FIT</span>
+              </div>
             </div>
-            <h1 style={{ fontSize: '32px', fontWeight: '900', color: '#fff', letterSpacing: '-1.5px', margin: 0 }}>
-              conta<span style={{ color: '#10b981' }}>FIT</span>
-            </h1>
-            <p style={{ color: '#94a3b8', marginTop: '8px', fontSize: '15px' }}>
-              Contabilidade Estratégica Fitness
+            <p style={{ color: '#72f3e8', fontWeight: '600', fontSize: '14px', letterSpacing: '1px', textTransform: 'uppercase' }}>
+              Contabilidade 100% Digital
             </p>
           </header>
 
           <nav style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-            <LinkButton href={links.whatsapp} label="Consultoria VIP WhatsApp 💬" primary />
-            <LinkButton href={links.planejamento} label="Planejamento Tributário 📊" />
-            <LinkButton href={links.site} label="Nosso Site Oficial 🌐" />
+            
+            {/* BOTÃO CIANO - ABRIR EMPRESA (Destaque Principal) */}
+            <LinkButton 
+              href={links.abrirEmpresa} 
+              label="Abra sua empresa grátis 🚀" 
+              variant="primary" 
+            />
+
+            {/* BOTÃO BRANCO - TROCAR DE CONTADOR */}
+            <LinkButton 
+              href={links.trocarContador} 
+              label="Quero trocar de contador 🔄" 
+              variant="secondary" 
+            />
+
+            {/* BOTÃO GHOST - FALAR COM ESPECIALISTA */}
+            <LinkButton 
+              href={links.falarEspecialista} 
+              label="Falar com um Especialista 💬" 
+              variant="outline" 
+            />
+
+            {/* SITE OFICIAL */}
+            <a href={links.site} target="_blank" rel="noopener noreferrer" 
+               style={{ color: 'white', textDecoration: 'underline', fontSize: '14px', marginTop: '10px', opacity: 0.8 }}>
+              Acesse nosso site oficial
+            </a>
           </nav>
 
-          <footer style={{ marginTop: '60px', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '20px' }}>
-            <p style={{ fontSize: '11px', color: '#64748b', textTransform: 'uppercase', letterSpacing: '1px' }}>
-              CONTAFIT • CRC-ES ES-005661/O-9
+          <footer style={{ marginTop: '80px', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '20px' }}>
+            <p style={{ fontSize: '11px', color: 'rgba(255,255,255,0.6)', lineHeight: '1.6' }}>
+              <strong>contaFIT - Inteligência Contábil</strong><br />
+              Do CNPJ à gestão, tudo flui. <br />
+              CRC-ES ES-005661/O-9
             </p>
           </footer>
         </div>
@@ -84,21 +117,43 @@ export default function LinksPage() {
   );
 }
 
-function LinkButton({ href, label, primary }: { href: string, label: string, primary?: boolean }) {
+// Sub-componente de botão para manter o código limpo
+function LinkButton({ href, label, variant }: { href: string, label: string, variant: 'primary' | 'secondary' | 'outline' }) {
+  const styles: any = {
+    primary: {
+      backgroundColor: '#72f3e8', // Ciano do site
+      color: '#0000ad',
+      boxShadow: '0 4px 15px rgba(114, 243, 232, 0.3)',
+    },
+    secondary: {
+      backgroundColor: '#ffffff',
+      color: '#0000ad',
+      boxShadow: '0 4px 15px rgba(255, 255, 255, 0.1)',
+    },
+    outline: {
+      backgroundColor: 'transparent',
+      color: '#ffffff',
+      border: '1px solid rgba(255, 255, 255, 0.3)',
+    }
+  };
+
+  const currentStyle = styles[variant];
+
   return (
-    <a href={href} target="_blank" rel="noopener noreferrer" style={{
-      display: 'block',
-      padding: '18px 24px',
-      borderRadius: '16px',
-      textDecoration: 'none',
-      fontWeight: '700',
-      fontSize: '16px',
-      transition: 'all 0.2s ease',
-      backgroundColor: primary ? '#10b981' : 'rgba(255, 255, 255, 0.05)',
-      color: '#fff',
-      border: primary ? 'none' : '1px solid rgba(255, 255, 255, 0.1)',
-      boxShadow: primary ? '0 4px 15px rgba(16, 185, 129, 0.3)' : 'none',
-    }}>
+    <a href={href} target="_blank" rel="noopener noreferrer" 
+       onMouseOver={(e) => e.currentTarget.style.transform = 'scale(1.02)'}
+       onMouseOut={(e) => e.currentTarget.style.transform = 'scale(1)'}
+       style={{
+         display: 'block',
+         padding: '20px 24px',
+         borderRadius: '12px',
+         textDecoration: 'none',
+         fontWeight: '800',
+         fontSize: '16px',
+         transition: 'all 0.2s ease',
+         textAlign: 'center',
+         ...currentStyle
+       }}>
       {label}
     </a>
   );
