@@ -1,5 +1,5 @@
 // lib/makeswift/FormularioNFSe.makeswift.ts
-import { makeswift } from './client'  // ou '../lib/makeswift/client' se necessário
+import { makeswift } from './client'   // ou '../lib/makeswift/client' se necessário
 import { FormularioNFSe } from '../../components/FormularioNFSe' 
 
 makeswift.registerComponent(FormularioNFSe, {
