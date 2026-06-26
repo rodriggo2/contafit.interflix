@@ -3,16 +3,29 @@
 
 import Script from 'next/script';
 
-export default function LinksPage() {
-  const pixelId = '1703806960639320';
-  const whatsappNumber = '5527935008000'; // Número oficial da contaFIT
+// Configurações e Links
+const CONFIG = {
+  pixelId: '1703806960639320',
+  whatsappNumber: '5527935008000',
+  whatsappMessage: encodeURIComponent('Olá! Vim pelo link da Bio e gostaria de uma consultoria contábil.'),
+  links: {
+    site: 'https://contafit.com.br',
+    conteudos: 'https://contafit.com.br/conteudos', // Exemplo de path
+  }
+};
 
-  const linkWhatsApp = `https://wa.me/${whatsappNumber}`;
-  const linkSite = 'https://contafit.com.br';
-  const linkConteudos = 'https://contafit.com.br'; // Ajuste aqui quando tiver página de conteúdos
+export default function LinksPage() {
+  
+  // Função para rastrear cliques no Meta Pixel
+  const trackClick = (eventName: string) => {
+    if (typeof window !== 'undefined' && (window as any).fbq) {
+      (window as any).fbq('trackCustom', eventName);
+    }
+  };
 
   return (
     <>
+      {/* Meta Pixel - Carregamento Otimizado */}
       <Script id="meta-pixel" strategy="afterInteractive">
         {`
           !function(f,b,e,v,n,t,s)
@@ -23,137 +36,123 @@ export default function LinksPage() {
           t.src=v;s=b.getElementsByTagName(e)[0];
           s.parentNode.insertBefore(t,s)}(window, document,'script',
           'https://connect.facebook.net/en_US/fbevents.js');
-          fbq('init', '${pixelId}');
+          fbq('init', '${CONFIG.pixelId}');
           fbq('track', 'PageView');
         `}
       </Script>
 
-      <div
+      <main
         style={{
           backgroundColor: '#0f172a',
+          backgroundImage: 'radial-gradient(circle at top, #1e293b 0%, #0f172a 100%)',
           color: '#f8fafc',
-          fontFamily: 'sans-serif',
+          fontFamily: 'system-ui, -apple-system, sans-serif',
           display: 'flex',
           flexDirection: 'column',
           minHeight: '100vh',
           alignItems: 'center',
-          justifyContent: 'center',
-          padding: '40px 20px',
+          padding: '60px 20px',
         }}
       >
-        <div style={{ maxWidth: '440px', width: '100%', textAlign: 'center' }}>
-          <div
-            style={{
-              fontSize: '32px',
-              fontWeight: '700',
-              marginBottom: '8px',
-              letterSpacing: '-1px',
-            }}
-          >
-            conta
-            <span style={{ fontWeight: '900', textTransform: 'uppercase' }}>
-              FIT
-            </span>
+        <div style={{ maxWidth: '400px', width: '100%', textAlign: 'center' }}>
+          
+          {/* Logo / Header */}
+          <header style={{ marginBottom: '40px' }}>
+            <div style={{ fontSize: '36px', fontWeight: '800', letterSpacing: '-1.5px', marginBottom: '12px' }}>
+              conta<span style={{ color: '#10b981' }}>FIT</span>
+            </div>
+            <p style={{ fontSize: '15px', color: '#94a3b8', lineHeight: '1.5' }}>
+              Contabilidade Digital Especializada no <br />
+              <strong>Mercado Fitness 🏋️</strong>
+            </p>
+          </header>
+
+          {/* Grid de Botões */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            
+            <LinkButton 
+              href={`https://wa.me/${CONFIG.whatsappNumber}?text=${CONFIG.whatsappMessage}`}
+              label="Falar Conosco no WhatsApp 💬"
+              bgColor="#25D366"
+              textColor="#fff"
+              onClick={() => trackClick('ClickWhatsApp')}
+            />
+
+            <LinkButton 
+              href={CONFIG.links.site}
+              label="Conheça Nosso Site Oficial 🌐"
+              bgColor="#ffffff"
+              textColor="#0f172a"
+              onClick={() => trackClick('ClickSite')}
+            />
+
+            <LinkButton 
+              href={CONFIG.links.conteudos}
+              label="Conteúdos e Planejamento 📊"
+              bgColor="#ffffff"
+              textColor="#0f172a"
+              onClick={() => trackClick('ClickConteudos')}
+            />
+
           </div>
-
-          <p style={{ fontSize: '14px', color: '#94a3b8', marginBottom: '32px' }}>
-            Contabilidade Digital Especializada no Mercado Fitness 🏋️
-          </p>
-
-          {/* Botão WhatsApp */}
-          <a
-            href={linkWhatsApp}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: 'block',
-              width: '100%',
-              padding: '16px',
-              backgroundColor: '#25D366',
-              color: '#ffffff',
-              textDecoration: 'none',
-              fontWeight: '600',
-              fontSize: '15px',
-              borderRadius: '9999px',
-              marginBottom: '14px',
-              boxShadow: '0 4px 12px rgba(37, 211, 102, 0.2)',
-            }}
-          >
-            Falar Conosco no WhatsApp 💬
-          </a>
-
-          {/* Botão Site Oficial */}
-          <a
-            href={linkSite}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: 'block',
-              width: '100%',
-              padding: '16px',
-              backgroundColor: '#ffffff',
-              color: '#0f172a',
-              textDecoration: 'none',
-              fontWeight: '600',
-              fontSize: '15px',
-              borderRadius: '9999px',
-              marginBottom: '14px',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-            }}
-          >
-            Conheça Nosso Site Oficial 🌐
-          </a>
-
-          {/* Botão Conteúdos */}
-          <a
-            href={linkConteudos}
-            target="_blank"
-            rel="noopener noreferrer"
-            style={{
-              display: 'block',
-              width: '100%',
-              padding: '16px',
-              backgroundColor: '#ffffff',
-              color: '#0f172a',
-              textDecoration: 'none',
-              fontWeight: '600',
-              fontSize: '15px',
-              borderRadius: '9999px',
-              marginBottom: '32px',
-              boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-            }}
-          >
-            Conteúdos e Planejamento Tributário 📊
-          </a>
 
           <footer
             style={{
-              fontSize: '11px',
+              fontSize: '12px',
               color: '#64748b',
-              lineHeight: '1.6',
-              marginTop: '20px',
+              lineHeight: '1.8',
+              marginTop: '50px',
+              paddingTop: '20px',
+              borderTop: '1px solid #1e293b'
             }}
           >
-            <strong>contaFIT - Instituição de Contabilidade</strong>
+            <strong>contaFIT - Inteligência Contábil</strong>
             <br />
-            Registrada no CRC-ES nº ES-005661/O-9
+            CRC-ES nº ES-005661/O-9
             <br />
-            <span
-              style={{
-                display: 'inline-flex',
-                alignItems: 'center',
-                marginTop: '6px',
-                color: '#10b981',
-                fontWeight: '600',
-              }}
-            >
-              🔒 Conexão Segura • LGPD
-            </span>
-            <br />
-            Todos os direitos reservados.
+            <div style={{ marginTop: '12px', color: '#10b981', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '5px' }}>
+              <span style={{ fontSize: '14px' }}>🔒</span> Conexão Segura • LGPD
+            </div>
           </footer>
         </div>
-      </div>
+      </main>
     </>
+  );
+}
+
+/**
+ * Componente de Botão Otimizado
+ */
+function LinkButton({ href, label, bgColor, textColor, onClick }: any) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noopener noreferrer"
+      onClick={onClick}
+      style={{
+        display: 'block',
+        width: '100%',
+        padding: '18px 20px',
+        backgroundColor: bgColor,
+        color: textColor,
+        textDecoration: 'none',
+        fontWeight: '700',
+        fontSize: '15px',
+        borderRadius: '12px',
+        transition: 'transform 0.2s ease, box-shadow 0.2s ease',
+        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+      }}
+      onMouseOver={(e) => {
+        e.currentTarget.style.transform = 'scale(1.02)';
+        e.currentTarget.style.boxShadow = '0 10px 15px -3px rgba(0, 0, 0, 0.2)';
+      }}
+      onMouseOut={(e) => {
+        e.currentTarget.style.transform = 'scale(1)';
+        e.currentTarget.style.boxShadow = '0 4px 6px -1px rgba(0, 0, 0, 0.1)';
+      }}
+    >
+      {label}
+    </a>
   );
 }
