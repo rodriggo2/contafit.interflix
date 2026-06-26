@@ -1,9 +1,20 @@
-// Exemplo de como o seu middleware deve permitir a rota /links
+import { NextRequest, NextResponse } from 'next/server'
+
+export function middleware(req: NextRequest) {
+  const { pathname } = req.nextUrl
+
+  // Se a rota for /links, não processe nada, deixe o Next.js entregar o arquivo físico
+  if (pathname === '/links') {
+    return NextResponse.next()
+  }
+
+  // ... restante do seu código do Makeswift
+}
+
 export const config = {
   matcher: [
     /*
-     * Ignore todas as rotas exceto as que o Makeswift deve cuidar.
-     * Garanta que /links NÃO seja capturado se o middleware for restritivo.
+     * Adicione 'links' na lista de exceções do matcher abaixo
      */
     '/((?!api|_next/static|_next/image|favicon.ico|links).*)',
   ],
