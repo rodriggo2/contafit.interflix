@@ -31,28 +31,29 @@ export default function LinksPage() {
         `}
       </Script>
 
-      <style jsx global>{`
-        body { 
-          background-color: #0000ad !important; 
-          margin: 0;
-          padding: 0;
-          overflow-x: hidden;
-          -webkit-tap-highlight-color: transparent;
-        } 
-        @keyframes pulseGlow {
-          0% { box-shadow: 0 0 0 0 rgba(114, 243, 232, 0.6); }
-          70% { box-shadow: 0 0 0 20px rgba(114, 243, 232, 0); }
-          100% { box-shadow: 0 0 0 0 rgba(114, 243, 232, 0); }
-        }
-        .btn-primary-animate {
-          animation: pulseGlow 2.5s infinite;
-        }
-        @keyframes slideUp {
-          from { opacity: 0; transform: translateY(30px); }
-          to { opacity: 1; transform: translateY(0); }
-        }
-        .animate-entry { animation: slideUp 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
-      `}</style>
+      <style dangerouslySetInnerHTML={{
+        __html: `
+          body { 
+            background-color: #0000ad !important; 
+            margin: 0;
+            padding: 0;
+            overflow-x: hidden;
+          } 
+          @keyframes pulseGlow {
+            0% { box-shadow: 0 0 0 0 rgba(114, 243, 232, 0.6); }
+            70% { box-shadow: 0 0 0 20px rgba(114, 243, 232, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(114, 243, 232, 0); }
+          }
+          .btn-primary-animate {
+            animation: pulseGlow 2.5s infinite;
+          }
+          @keyframes slideUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+          }
+          .animate-entry { animation: slideUp 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
+        `
+      }} />
 
       <main style={{
         minHeight: '100dvh',
@@ -67,7 +68,7 @@ export default function LinksPage() {
         boxSizing: 'border-box'
       }}>
         
-        {/* LOGOTIPO DA CONTAFIT (SUBSTITUÍDO) */}
+        {/* LOGOTIPO DA CONTAFIT */}
         <header className="animate-entry" style={{ width: '100%', textAlign: 'center' }}>
           <img 
             src="/logo-contafit.png" 
@@ -91,7 +92,7 @@ export default function LinksPage() {
           </p>
         </header>
 
-        {/* SECTION: BOTOES */}
+        {/* BOTÕES */}
         <nav className="animate-entry" style={{ 
           display: 'flex', 
           flexDirection: 'column', 
@@ -106,3 +107,81 @@ export default function LinksPage() {
             variant="primary" 
             animate
           />
+
+          <LinkButton 
+            href={links.trocarContador} 
+            label="QUERO TROCAR DE CONTADOR 🔄" 
+            variant="secondary" 
+          />
+
+          <LinkButton 
+            href={links.falarEspecialista} 
+            label="FALAR COM UM ESPECIALISTA 💬" 
+            variant="outline" 
+          />
+        </nav>
+
+        {/* RODAPÉ */}
+        <footer className="animate-entry" style={{ width: '100%', textAlign: 'center' }}>
+          <a href={links.site} target="_blank" rel="noopener noreferrer" 
+             style={{ 
+               color: 'white', 
+               textDecoration: 'none', 
+               fontSize: '18px', 
+               fontWeight: 'bold',
+               padding: '10px 20px',
+               borderBottom: '2px solid #72f3e8'
+             }}>
+            www.contafit.com.br
+          </a>
+          <div style={{ 
+            marginTop: '40px', 
+            fontSize: '13px', 
+            color: 'rgba(255,255,255,0.5)',
+            lineHeight: '1.6'
+          }}>
+            <strong>CONTAFIT CONTABILIDADE DIGITAL</strong><br />
+            ES-005661/O-9 • LGPD Compliant
+          </div>
+        </footer>
+      </main>
+    </>
+  );
+}
+
+function LinkButton({ href, label, variant, animate }: { 
+  href: string; 
+  label: string; 
+  variant: 'primary' | 'secondary' | 'outline'; 
+  animate?: boolean 
+}) {
+  const styles: any = {
+    primary: { backgroundColor: '#72f3e8', color: '#0000ad', border: 'none' },
+    secondary: { backgroundColor: '#ffffff', color: '#0000ad', border: 'none' },
+    outline: { backgroundColor: 'transparent', color: '#ffffff', border: '2px solid rgba(255, 255, 255, 0.5)' }
+  };
+
+  return (
+    <a 
+      href={href} 
+      target="_blank" 
+      rel="noopener noreferrer" 
+      className={animate ? 'btn-primary-animate' : ''}
+      style={{
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        width: '100%',
+        height: '82px',
+        borderRadius: '20px',
+        textDecoration: 'none',
+        fontWeight: '900',
+        fontSize: '20px',
+        transition: 'all 0.3s ease',
+        ...styles[variant]
+      }}
+    >
+      {label}
+    </a>
+  );
+}
