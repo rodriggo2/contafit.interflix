@@ -77,7 +77,10 @@ export default function LinksPage() {
             style={{ 
               width: 'min(65vw, 320px)', 
               height: 'auto', 
-              marginBottom: '20px' 
+              marginBottom: '20px',
+              display: 'block',
+              marginLeft: 'auto',
+              marginRight: 'auto'
             }} 
           />
           <p style={{ 
