@@ -2,6 +2,7 @@
 'use client';
 
 import Script from 'next/script';
+import logoContafit from '../logo-contafit.png'; // importa diretamente de app/
 
 export default function LinksPage() {
   const pixelId = '1703806960639320';
@@ -71,7 +72,7 @@ export default function LinksPage() {
         {/* LOGOTIPO DA CONTAFIT */}
         <header className="animate-entry" style={{ width: '100%', textAlign: 'center' }}>
           <img 
-            src="/logo-contafit.png" 
+            src={logoContafit.src} 
             alt="ContaFit" 
             style={{ 
               width: 'min(65vw, 320px)', 
