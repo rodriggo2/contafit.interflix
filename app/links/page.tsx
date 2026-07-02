@@ -55,11 +55,11 @@ export default function LinksPage() {
       `}</style>
 
       <main style={{
-        minHeight: '100dvh', // Preenche 100% da tela do iPhone/Smartphone
+        minHeight: '100dvh',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'space-evenly', // Espalha o conteúdo verticalmente
+        justifyContent: 'space-evenly',
         padding: '20px 0',
         backgroundColor: '#0000ad',
         backgroundImage: 'radial-gradient(circle at 50% 30%, #0000ff 0%, #0000ad 100%)',
@@ -67,40 +67,31 @@ export default function LinksPage() {
         boxSizing: 'border-box'
       }}>
         
-        {/* SECTION: LOGO (MAIOR) */}
+        {/* LOGOTIPO DA CONTAFIT (SUBSTITUÍDO) */}
         <header className="animate-entry" style={{ width: '100%', textAlign: 'center' }}>
-          <div style={{ 
-            color: 'white', 
-            fontSize: 'min(14vw, 56px)', // Escala conforme a largura da tela
-            fontWeight: '900', 
-            display: 'flex', 
-            alignItems: 'center', 
-            justifyContent: 'center',
-            letterSpacing: '-2px'
-          }}>
-            <span style={{ 
-              border: 'min(1.2vw, 5px) solid white', 
-              borderRadius: '15px', 
-              padding: '2px 16px', 
-              marginRight: '15px',
-              fontSize: '0.8em'
-            }}>F</span>
-            conta<span style={{ fontWeight: '900' }}>FIT</span>
-          </div>
+          <img 
+            src="/logo-contafit.png" 
+            alt="ContaFit" 
+            style={{ 
+              width: 'min(65vw, 320px)', 
+              height: 'auto', 
+              marginBottom: '20px' 
+            }} 
+          />
           <p style={{ 
             color: '#72f3e8', 
             fontWeight: '700', 
             fontSize: '16px', 
             letterSpacing: '4px', 
             textTransform: 'uppercase',
-            marginTop: '15px',
+            marginTop: '10px',
             opacity: 0.9
           }}>
-            Inteligência Contábil
+            INTELIGÊNCIA CONTÁBIL
           </p>
         </header>
 
-        {/* SECTION: BOTOES (OCUPANDO 92% DA LARGURA) */}
+        {/* SECTION: BOTOES */}
         <nav className="animate-entry" style={{ 
           display: 'flex', 
           flexDirection: 'column', 
@@ -115,89 +106,3 @@ export default function LinksPage() {
             variant="primary" 
             animate
           />
-
-          <LinkButton 
-            href={links.trocarContador} 
-            label="QUERO TROCAR DE CONTADOR 🔄" 
-            variant="secondary" 
-          />
-
-          <LinkButton 
-            href={links.falarEspecialista} 
-            label="FALAR COM UM ESPECIALISTA 💬" 
-            variant="outline" 
-          />
-        </nav>
-
-        {/* SECTION: FOOTER / SITE */}
-        <footer className="animate-entry" style={{ width: '100%', textAlign: 'center' }}>
-          <a href={links.site} target="_blank" rel="noopener noreferrer" 
-             style={{ 
-               color: 'white', 
-               textDecoration: 'none', 
-               fontSize: '18px', 
-               fontWeight: 'bold',
-               padding: '10px 20px',
-               borderBottom: '2px solid #72f3e8'
-             }}>
-            www.contafit.com.br
-          </a>
-          <div style={{ 
-            marginTop: '40px', 
-            fontSize: '13px', 
-            color: 'rgba(255,255,255,0.5)',
-            lineHeight: '1.6'
-          }}>
-            <strong>CONTAFIT CONTABILIDADE DIGITAL</strong><br />
-            ES-005661/O-9 • LGPD Compliant
-          </div>
-        </footer>
-      </main>
-    </>
-  );
-}
-
-function LinkButton({ href, label, variant, animate }: { href: string, label: string, variant: 'primary' | 'secondary' | 'outline', animate?: boolean }) {
-  const styles: any = {
-    primary: {
-      backgroundColor: '#72f3e8',
-      color: '#0000ad',
-      border: 'none',
-    },
-    secondary: {
-      backgroundColor: '#ffffff',
-      color: '#0000ad',
-      border: 'none',
-    },
-    outline: {
-      backgroundColor: 'transparent',
-      color: '#ffffff',
-      border: '2px solid rgba(255, 255, 255, 0.5)',
-    }
-  };
-
-  const currentStyle = styles[variant];
-
-  return (
-    <a href={href} target="_blank" rel="noopener noreferrer" 
-       className={animate ? 'btn-primary-animate' : ''}
-       style={{
-         display: 'flex',
-         alignItems: 'center',
-         justifyContent: 'center',
-         width: '100%',
-         height: '82px', // Altura GIGANTE para smartphones modernos
-         borderRadius: '20px', // Bordas mais arredondadas (estilo iOS)
-         textDecoration: 'none',
-         fontWeight: '900',
-         fontSize: '20px', // Fonte maior
-         transition: 'all 0.3s ease',
-         textAlign: 'center',
-         boxSizing: 'border-box',
-         letterSpacing: '0.5px',
-         ...currentStyle
-       }}>
-      {label}
-    </a>
-  );
-}
