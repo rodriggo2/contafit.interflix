@@ -1,16 +1,16 @@
-// app/links/page.tsx
 'use client';
 
 import Script from 'next/script';
+import Image from 'next/image';
+import logoContafit from '../logo-contafit.png'; // importa a imagem diretamente
 
 export default function LinksPage() {
   const pixelId = '1703806960639320';
   const whatsappNumber = '5527935008000';
 
   const links = {
-    abrirEmpresa: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Olá! Vi o link na Bio e quero abrir minha empresa gratuitamente com a contaFIT.')}`,
-    trocarContador: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Olá! Já tenho empresa e gostaria de trocar de contador para a contaFIT.')}`,
-    falarEspecialista: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Olá! Gostaria de falar com um especialista da contaFIT.')}`,
+    whatsapp: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Olá! Vim pelo link da Bio e gostaria de uma consultoria.')}`,
+    planejamento: `https://wa.me/${whatsappNumber}?text=${encodeURIComponent('Olá! Quero saber mais sobre Planejamento Tributário.')}`,
     site: 'https://contafit.com.br',
   };
 
@@ -31,156 +31,84 @@ export default function LinksPage() {
         `}
       </Script>
 
-      <style dangerouslySetInnerHTML={{
-        __html: `
-          body { 
-            background-color: #0000ad !important; 
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
-          } 
-          @keyframes pulseGlow {
-            0% { box-shadow: 0 0 0 0 rgba(114, 243, 232, 0.6); }
-            70% { box-shadow: 0 0 0 20px rgba(114, 243, 232, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(114, 243, 232, 0); }
-          }
-          .btn-primary-animate {
-            animation: pulseGlow 2.5s infinite;
-          }
-          @keyframes slideUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-          .animate-entry { animation: slideUp 0.7s cubic-bezier(0.2, 0.8, 0.2, 1) forwards; }
-        `
-      }} />
+      <style jsx global>{`
+        body { background-color: #020617 !important; }
+        @keyframes fadeInUp {
+          from { opacity: 0; transform: translateY(20px); }
+          to { opacity: 1; transform: translateY(0); }
+        }
+        .fade-in { animation: fadeInUp 0.5s ease-out forwards; }
+      `}</style>
 
       <main style={{
-        minHeight: '100dvh',
+        minHeight: '100vh',
         display: 'flex',
         flexDirection: 'column',
         alignItems: 'center',
-        justifyContent: 'space-evenly',
-        padding: '20px 0',
-        backgroundColor: '#0000ad',
-        backgroundImage: 'radial-gradient(circle at 50% 30%, #0000ff 0%, #0000ad 100%)',
-        fontFamily: 'system-ui, -apple-system, sans-serif',
-        boxSizing: 'border-box'
+        justifyContent: 'center',
+        padding: '40px 20px',
+        background: 'radial-gradient(circle at 50% 0%, #1e293b 0%, #020617 100%)',
       }}>
-        
-        {/* LOGOTIPO DA CONTAFIT */}
-        <header className="animate-entry" style={{ width: '100%', textAlign: 'center' }}>
-          <img 
-            src="/logo-contafit.png" 
-            alt="ContaFit" 
-            style={{ 
-              width: 'min(65vw, 320px)', 
-              height: 'auto', 
-              marginBottom: '20px' 
-            }} 
-          />
-          <p style={{ 
-            color: '#72f3e8', 
-            fontWeight: '700', 
-            fontSize: '16px', 
-            letterSpacing: '4px', 
-            textTransform: 'uppercase',
-            marginTop: '10px',
-            opacity: 0.9
-          }}>
-            INTELIGÊNCIA CONTÁBIL
-          </p>
-        </header>
-
-        {/* BOTÕES */}
-        <nav className="animate-entry" style={{ 
-          display: 'flex', 
-          flexDirection: 'column', 
-          gap: '20px',
-          width: '92%', 
-          maxWidth: '550px' 
-        }}>
+        <div className="fade-in" style={{ maxWidth: '400px', width: '100%', textAlign: 'center' }}>
           
-          <LinkButton 
-            href={links.abrirEmpresa} 
-            label="ABRA SUA EMPRESA GRÁTIS 🚀" 
-            variant="primary" 
-            animate
-          />
+          <header style={{ marginBottom: '40px' }}>
+            <div style={{ 
+              width: '80px', height: '80px', borderRadius: '24px', 
+              background: 'linear-gradient(135deg, #10b981 0%, #059669 100%)',
+              margin: '0 auto 20px', display: 'flex', alignItems: 'center', justifyContent: 'center',
+              boxShadow: '0 10px 25px -5px rgba(16, 185, 129, 0.4)',
+              overflow: 'hidden' // garante que a imagem respeite o borderRadius
+            }}>
+              {/* Substitui o emoji pela imagem da contaFIT */}
+              <Image 
+                src={logoContafit} 
+                alt="Logo contaFIT" 
+                width={48} 
+                height={48} 
+                style={{ objectFit: 'contain' }}
+                priority
+              />
+            </div>
+            <h1 style={{ fontSize: '32px', fontWeight: '900', color: '#fff', letterSpacing: '-1.5px', margin: 0 }}>
+              conta<span style={{ color: '#10b981' }}>FIT</span>
+            </h1>
+            <p style={{ color: '#94a3b8', marginTop: '8px', fontSize: '15px' }}>
+              Contabilidade Estratégica Fitness
+            </p>
+          </header>
 
-          <LinkButton 
-            href={links.trocarContador} 
-            label="QUERO TROCAR DE CONTADOR 🔄" 
-            variant="secondary" 
-          />
+          <nav style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            <LinkButton href={links.whatsapp} label="Consultoria VIP WhatsApp 💬" primary />
+            <LinkButton href={links.planejamento} label="Planejamento Tributário 📊" />
+            <LinkButton href={links.site} label="Nosso Site Oficial 🌐" />
+          </nav>
 
-          <LinkButton 
-            href={links.falarEspecialista} 
-            label="FALAR COM UM ESPECIALISTA 💬" 
-            variant="outline" 
-          />
-        </nav>
-
-        {/* RODAPÉ */}
-        <footer className="animate-entry" style={{ width: '100%', textAlign: 'center' }}>
-          <a href={links.site} target="_blank" rel="noopener noreferrer" 
-             style={{ 
-               color: 'white', 
-               textDecoration: 'none', 
-               fontSize: '18px', 
-               fontWeight: 'bold',
-               padding: '10px 20px',
-               borderBottom: '2px solid #72f3e8'
-             }}>
-            www.contafit.com.br
-          </a>
-          <div style={{ 
-            marginTop: '40px', 
-            fontSize: '13px', 
-            color: 'rgba(255,255,255,0.5)',
-            lineHeight: '1.6'
-          }}>
-            <strong>CONTAFIT CONTABILIDADE DIGITAL</strong><br />
-            ES-005661/O-9 • LGPD Compliant
-          </div>
-        </footer>
+          <footer style={{ marginTop: '60px', borderTop: '1px solid rgba(255,255,255,0.1)', paddingTop: '20px' }}>
+            <p style={{ fontSize: '11px', color: '#64748b', textTransform: 'uppercase', letterSpacing: '1px' }}>
+              CONTAFIT • CRC-ES ES-005661/O-9
+            </p>
+          </footer>
+        </div>
       </main>
     </>
   );
 }
 
-function LinkButton({ href, label, variant, animate }: { 
-  href: string; 
-  label: string; 
-  variant: 'primary' | 'secondary' | 'outline'; 
-  animate?: boolean 
-}) {
-  const styles: any = {
-    primary: { backgroundColor: '#72f3e8', color: '#0000ad', border: 'none' },
-    secondary: { backgroundColor: '#ffffff', color: '#0000ad', border: 'none' },
-    outline: { backgroundColor: 'transparent', color: '#ffffff', border: '2px solid rgba(255, 255, 255, 0.5)' }
-  };
-
+function LinkButton({ href, label, primary }: { href: string, label: string, primary?: boolean }) {
   return (
-    <a 
-      href={href} 
-      target="_blank" 
-      rel="noopener noreferrer" 
-      className={animate ? 'btn-primary-animate' : ''}
-      style={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        width: '100%',
-        height: '82px',
-        borderRadius: '20px',
-        textDecoration: 'none',
-        fontWeight: '900',
-        fontSize: '20px',
-        transition: 'all 0.3s ease',
-        ...styles[variant]
-      }}
-    >
+    <a href={href} target="_blank" rel="noopener noreferrer" style={{
+      display: 'block',
+      padding: '18px 24px',
+      borderRadius: '16px',
+      textDecoration: 'none',
+      fontWeight: '700',
+      fontSize: '16px',
+      transition: 'all 0.2s ease',
+      backgroundColor: primary ? '#10b981' : 'rgba(255, 255, 255, 0.05)',
+      color: '#fff',
+      border: primary ? 'none' : '1px solid rgba(255, 255, 255, 0.1)',
+      boxShadow: primary ? '0 4px 15px rgba(16, 185, 129, 0.3)' : 'none',
+    }}>
       {label}
     </a>
   );
